@@ -14,3 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/admin/', function () {
+    return view ('admin.index');
+});
+
+Route::get('/admin/pelanggan/', function () {
+    return view ('admin.pelanggan');
+});
+
+Route::get('/admin/inventory', function () {
+    return view ('admin.inventory');
+});
+
+Route::get('/admin/brand', function () {
+    return view ('/admin/brand');
+});
