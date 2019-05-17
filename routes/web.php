@@ -19,7 +19,7 @@ Route::get('/admin/', function () {
     return view ('admin.index');
 });
 
-Route::get('/admin/pelanggan/', function () {
+Route::get('/admin/customer/', function () {
     return view ('admin.customer');
 });
 
