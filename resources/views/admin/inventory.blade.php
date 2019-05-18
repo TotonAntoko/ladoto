@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Customer')
+@section('title', 'Inventory')
 
 @section('content')
 
@@ -10,12 +10,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Data Customer
+            Data Inventory
             {{-- <small>advanced tables</small> --}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Data Customer</li>
+            <li class="active">Data Inventory</li>
         </ol>
     </section>
 
@@ -25,7 +25,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Data Customer</h3>
+                        <h3 class="box-title">Data Inventory</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -34,44 +34,41 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>Kota</th>
-                                    <th>Negara</th>
-                                    <th>No Telepon</th>
-                                    <th>Status</th>
+                                    <th>Nama Barang</th>
+                                    <th>Jenis Barang</th>
+                                    <th>Harga Barang</th>
+                                    <th>Stok</th>
+                                    <th>Brand</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach ($customer as $cust)
+                              @foreach ($inventory as $inven)
                                 <tr>
-                                    <td>{{$cust->nama}}</td>
-                                    <td>{{$cust->alamat}}</td>
-                                    <td>{{$cust->kota}}</td>
-                                    <td>{{$cust->negara}}</td>
-                                    <td>{{$cust->no_telp}}</td>
-                                    <td>{{$cust->status}}</td>
+                                    <td>{{$inven->nama_barang}}</td>
+                                    <td>{{$inven->jenis_barang}}</td>
+                                    <td>{{$inven->harga_barang}}</td>
+                                    <td>{{$inven->stok}}</td>
+                                    <td>{{$inven->brand}}</td>
                                     <td>
                                         <a href="" class="btn btn-success btn-sm">Active</a>
                                         <a href="" class="btn btn-warning btn-sm">Suspend</a>
                                         <button class="edit-modal btn btn-warning btn-sm" 
                                             data-toggle="modal"
                                             data-target="#editModal"
-                                            data-id="{{ $cust->id }}"
-                                            data-nama="{{ $cust->nama }}"
-                                            data-alamat="{{ $cust->alamat }}"
-                                            data-kota="{{ $cust->kota }}"
-                                            data-negara="{{ $cust->negara }}"
-                                            data-no_telp="{{ $cust->no_telp }}"
-                                            data-status="{{ $cust->status }}"
+                                            data-id="{{ $inven->id }}"
+                                            data-nama="{{ $inven->nama_barang }}"
+                                            data-jenis="{{ $inven->jenis_barang }}"
+                                            data-harga="{{ $inven->harga_barang }}"
+                                            data-stok="{{ $inven->stok }}"
+                                            data-brand="{{ $inven->brand }}"
                                             >
                                             Edit
                                         </button>
                                         <button class="delete-modal btn btn-danger btn-sm"
                                             data-toggle="modal" 
                                             data-target="#deleteModal"
-                                            data-delete-id="{{ $cust->id }}">Delete</button>
+                                            data-delete-id="{{ $inven->id }}">Delete</button>
                                     </td>
                                 </tr>
                               @endforeach
@@ -106,38 +103,34 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Inventory</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form  action="/admin/customer/create" method="post">
+                <form  action="/admin/inventory/create" method="post">
                   {{csrf_field()}}
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" name="nama" class="form-control" id="nama" aria-describedby="emailHelp"
-                            placeholder="Nama" autofocus>
+                        <label for="nama">Nama Barang</label>
+                        <input type="text" name="nama_barang" class="form-control" id="nama" aria-describedby="emailHelp"
+                            placeholder="Nama Barang" autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat">
+                        <label for="jenis">Jenis Barang</label>
+                        <input type="text" name="jenis_barang" class="form-control" id="jenis" placeholder="Jenis Barang">
                     </div>
                     <div class="form-group">
-                        <label for="kota">Kota</label>
-                        <input type="text" name="kota" class="form-control" id="kota" placeholder="Kota">
+                        <label for="harga">Harga Barang</label>
+                        <input type="text" name="harga_barang" class="form-control" id="harga" placeholder="Harga Barang">
                     </div>
                     <div class="form-group">
-                        <label for="negara">Negara</label>
-                        <input type="text" name="negara" class="form-control" id="negara" placeholder="Negara">
+                        <label for="stok">Stok</label>
+                        <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok">
                     </div>
                     <div class="form-group">
-                        <label for="no_telp">No Telepon</label>
-                        <input type="text" name="no_telp" class="form-control" id="no_telp" placeholder="No Telepon">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <input type="text" name="status" class="form-control" id="status" placeholder="Status">
+                        <label for="brand">Brand</label>
+                        <input type="text" name="brand" class="form-control" id="brand" placeholder="Brand">
                     </div>
             </div>
             <div class="modal-footer">
@@ -155,7 +148,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Inventory</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -164,29 +157,25 @@
                 <form>
                     <input type="text" id="id-edit" hidden>
                     <div class="form-group">
-                        <label for="nama-edit">Nama</label>
+                        <label for="nama-edit">Nama Barang</label>
                         <input type="text" class="form-control" id="nama-edit" aria-describedby="emailHelp"
-                            placeholder="Nama" autofocus>
+                            placeholder="Nama Barang" autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="alamat-edit">Alamat</label>
-                        <input type="text" class="form-control" id="alamat-edit" placeholder="Alamat">
+                        <label for="jenis-edit">Jenis Barang</label>
+                        <input type="text" class="form-control" id="jenis-edit" placeholder="Jenis Barang">
                     </div>
                     <div class="form-group">
-                        <label for="kota-edit">Kota</label>
-                        <input type="text" class="form-control" id="kota-edit" placeholder="Kota">
+                        <label for="harga-edit">Harga Barang</label>
+                        <input type="text" class="form-control" id="harga-edit" placeholder="Harga Barang">
                     </div>
                     <div class="form-group">
-                        <label for="negara-edit">Negara</label>
-                        <input type="text" class="form-control" id="negara-edit" placeholder="Negara">
+                        <label for="stok-edit">Stok</label>
+                        <input type="text" class="form-control" id="stok-edit" placeholder="Stok">
                     </div>
                     <div class="form-group">
-                        <label for="noTelp-edit">No Telepon</label>
-                        <input type="text" class="form-control" id="noTelp-edit" placeholder="No Telepon">
-                    </div>
-                    <div class="form-group">
-                        <label for="status-edit">Status</label>
-                        <input type="text" class="form-control" id="status-edit" placeholder="Status">
+                        <label for="brand-edit">brand</label>
+                        <input type="text" class="form-control" id="brand-edit" placeholder="Brand">
                     </div>
                 </form>
             </div>
@@ -253,11 +242,10 @@
         $('.edit-modal').click(function() {
             $('#id-edit').val($(this).data('id'));
             $('#nama-edit').val($(this).data('nama'));
-            $('#alamat-edit').val($(this).data('alamat'));
-            $('#kota-edit').val($(this).data('kota'));
-            $('#negara-edit').val($(this).data('negara'));
-            $('#noTelp-edit').val($(this).data('no_telp'));
-            $('#status-edit').val($(this).data('status'));
+            $('#jenis-edit').val($(this).data('jenis'));
+            $('#harga-edit').val($(this).data('harga'));
+            $('#stok-edit').val($(this).data('stok'));
+            $('#brand-edit').val($(this).data('brand'));
             // $('#editModal').modal('show');
         });
         $('.delete-modal').click(function() {
@@ -266,19 +254,18 @@
         });
         $('.update').click(function() {
             $.ajax({
-                url: '/admin/customer/update',
+                url: '/admin/inventory/update',
                 type: 'PUT',
                 headers: {
                     'X-CSRF-TOKEN': $('#token').attr('content')
                 },
                 data: {
                     'id': $('#id-edit').val(),
-                    'nama': $('#nama-edit').val(),
-                    'alamat': $('#alamat-edit').val(),
-                    'kota': $('#kota-edit').val(),
-                    'negara': $('#negara-edit').val(),
-                    'no_telp': $('#noTelp-edit').val(),
-                    'status': $('#status-edit').val()
+                    'nama_barang': $('#nama-edit').val(),
+                    'jenis_barang': $('#harga-edit').val(),
+                    'harga_barang': $('#harga-edit').val(),
+                    'stok': $('#stok-edit').val(),
+                    'brand': $('#brand-edit').val()
                 },
                 success: function(result) {
                     // $('.state' + result.id)
@@ -307,7 +294,7 @@
         });
         $('.delete').click(function() {
             $.ajax({
-                url: '/admin/customer/delete',
+                url: '/admin/inventory/delete',
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('#token').attr('content')

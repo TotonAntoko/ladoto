@@ -19,13 +19,17 @@ Route::get('/admin/', function () {
     return view ('admin.index');
 });
 
-Route::get('/admin/customer/', function () {
-    return view ('admin.customer');
-});
+// CUSTOMER
+Route::get('/admin/customer/', 'CustomerController@index');
+Route::post('/admin/customer/create', 'CustomerController@create');
+Route::put('/admin/customer/update', 'CustomerController@update');
+Route::delete('/admin/customer/delete', 'CustomerController@destroy');
 
-Route::get('/admin/inventory', function () {
-    return view ('admin.inventory');
-});
+// INVENTORY
+Route::get('/admin/inventory/', 'InventoryController@index');
+Route::post('/admin/inventory/create', 'InventoryController@create');
+Route::put('/admin/inventory/update', 'InventoryController@update');
+Route::delete('/admin/inventory/delete', 'InventoryController@destroy');
 
 Route::get('/admin/brand', function () {
     return view ('/admin/brand');

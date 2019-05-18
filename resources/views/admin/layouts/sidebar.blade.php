@@ -40,6 +40,11 @@
                 <i class="fa fa-user"></i> <span>Customer</span>
             </a>
         </li>
+        <li>
+            <a href="/admin/inventory">
+                <i class="fa fa-user"></i> <span>Inventory</span>
+            </a>
+        </li>
         <li class="treeview">
             <a href="#">
             <i class="fa fa-files-o"></i>
