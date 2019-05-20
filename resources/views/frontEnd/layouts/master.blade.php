@@ -3,6 +3,9 @@
 
 <head>
     <title>Spike shoes Website Template | Home :: w3layouts</title>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+
     <link href="{{asset('frontEnd/css/style.css')}}" rel='stylesheet' type='text/css' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="application/x-javascript">
@@ -14,7 +17,7 @@
             window.scrollTo(0, 1);
         }
     </script>
-    </script>
+    
     <!----webfonts---->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!----//webfonts---->

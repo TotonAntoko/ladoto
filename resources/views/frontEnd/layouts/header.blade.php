@@ -24,7 +24,10 @@
                         });
                     </script>
                     <!---//cart-tonggle-script---->
-                    <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
+                    @guest
+                    @else
+                        <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
+                    @endguest
                     <!---start-cart-bag---->
                     <div id="cart">Your Cart is Empty <span>(0)</span></div>
                     <!---start-cart-bag---->
@@ -44,12 +47,29 @@
                 </div>
                 <div class="clear"> </div>
             </div>
-            <div class="top-header-right">
-                <ul>
-                    <li><a href="/login">Login</a><span> </span></li>
-                    <li><a href="/register">Join</a></li>
-                </ul>
-            </div>
+            @guest
+                <div class="top-header-right">
+                    <ul>
+                        <li><a href="/login">Login</a><span> </span></li>
+                        <li><a href="/register">Join</a></li>
+                    </ul>
+                </div>
+            @else
+                <div class="top-header-right">
+                    <ul>
+                        <li><a href="">{{ Auth::user()->username }}</a><span> </span></li>
+                        {{-- <li><a href="{{ route('logout') }}">Log</a></li> --}}
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Log
+                            </a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </ul>
+                </div>
+            @endguest
             <div class="clear"> </div>
         </div>
     </div>

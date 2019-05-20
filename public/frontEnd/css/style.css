@@ -144,7 +144,8 @@ body{
 	float: right;
 	padding: 2.5em 0 1em 0;
 }
-.mid-grid-left input[type="text"], .mid-grid-left input[type="email"]{
+.mid-grid-left input[type="text"], .mid-grid-left input[type="email"],
+.mid-grid-left input[type="password"]{
 	border: 1px solid #08080B;
 	border-right: none;
 	border-left: none;
@@ -158,7 +159,8 @@ body{
 	 -webkit-transition: width 0.5s ease-out;
 	 transition: width 0.5s ease-out;
 }
-.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus {
+.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus,
+.mid-grid-left input[type="password"]:focus {
  width:100%;
  -moz-transition: width 0.5s ease-out;
  -webkit-transition: width 0.5s ease-out;
@@ -1005,7 +1007,8 @@ h2.resp-accordion:first-child {
 	vertical-align: top;
 	margin-left: 0.2em;
 }
-.login-right input[type="text"], .login-right input[type="email"]{
+.login-right input[type="text"], .login-right input[type="email"],
+.login-right input[type="password"]{
 	border: 1px solid #EEE;
 	outline-color: #E45D5D;
 	width: 96%;
@@ -1030,7 +1033,7 @@ h2.resp-accordion:first-child {
 .login-right form div{
 	padding: 0 0 0.5em 0;
 }
-.login-right input[type="submit"]{
+.login-right input[type="submit"], .login-right button[type="submit"]{
 	background: #E45D5D;
 	color: #FFF;
 	font-size: 0.8em;
@@ -1050,7 +1053,7 @@ h2.resp-accordion:first-child {
 	border-left: none;
 	border-top: none;
 }
-.login-right input[type="submit"]:hover{
+.login-right input[type="submit"]:hover, .login-right button[type="submit"]:hover{
 	background: #1C1C20;
 	border-bottom: 4px solid #333;
 }
@@ -1080,7 +1083,8 @@ h2.resp-accordion:first-child {
 	margin-left: 0.2em;
 }
 .register-top-grid input[type="text"],.register-bottom-grid input[type="text"],
-.register-top-grid input[type="email"],.register-bottom-grid input[type="email"]{
+.register-top-grid input[type="email"],.register-bottom-grid input[type="email"],
+.register-top-grid input[type="password"],.register-bottom-grid input[type="password"]{
 	border: 1px solid #EEE;
 	outline-color: #E45D5D;
 	width: 96%;
@@ -1164,7 +1168,7 @@ h2.resp-accordion:first-child {
 .checkbox:last-child {
 	margin-bottom: 4px;
 }
-.register-grids form input[type="submit"]{
+.register-grids form input[type="submit"], .register-grids form button[type="submit"]{
 	background: #E45D5D;
 	color: #FFF;
 	font-size: 0.8em;
@@ -1185,7 +1189,7 @@ h2.resp-accordion:first-child {
 	border-top: none;
 	float: left;
 }
-.register-grids form input[type="submit"]:hover{
+.register-grids form input[type="submit"]:hover, .register-grids form button[type="submit"]:hover{
 	background: #1C1C20;
 	border-bottom: 4px solid #333;
 }
@@ -1545,7 +1549,8 @@ h2.resp-accordion:first-child {
 	padding: 0.8em 0 0.8em;
 	color: #E45D5D;
 }
-.vertical-tabs form input[type="text"], .vertical-tabs form input[type="email"]{
+.vertical-tabs form input[type="text"], .vertical-tabs form input[type="email"],
+.vertical-tabs form input[type="password"]{
 	border: 1px solid #EEE;
 	outline-color: #E45D5D;
 	width: 35%;
@@ -1553,7 +1558,7 @@ h2.resp-accordion:first-child {
 	padding: 0.5em;
 	font-family: 'Open Sans', sans-serif;
 }
-.vertical-tabs form input[type="submit"] {
+.vertical-tabs form input[type="submit"], .vertical-tabs form button[type="submit"] {
 	background: #E45D5D;
 	color: #FFF;
 	font-size: 0.8em;
@@ -1573,7 +1578,7 @@ h2.resp-accordion:first-child {
 	border-left: none;
 	border-top: none;
 }
-.vertical-tabs form input[type="submit"]:hover {
+.vertical-tabs form input[type="submit"]:hover, .vertical-tabs form button[type="submit"]:hover {
 	background: #1C1C20;
 	border-bottom: 4px solid #333;
 }
@@ -1780,7 +1785,8 @@ span.mail a {
 span.mail a:hover{
 	color:#626262;
 }
-.contact-to input[type="text"] , .contact-to input[type="email"] {
+.contact-to input[type="text"] , .contact-to input[type="email"],
+.contact-to input[type="password"] {
 	padding: 12px 10px;
 	width: 30.66%;
 	font-family: 'Open Sans', sans-serif;
@@ -1806,10 +1812,11 @@ span.mail a:hover{
 	-o-border-radius: 4px;
 }
 .contact-to input[type="text"]:nth-child(2),.contact-to input[type="text"]:nth-child(3),
-.contact-to input[type="email"]:nth-child(2),.contact-to input[type="email"]:nth-child(3){
+.contact-to input[type="email"]:nth-child(2),.contact-to input[type="email"]:nth-child(3),
+.contact-to input[type="password"]:nth-child(2),.contact-to input[type="password"]:nth-child(3){
 	margin-left:10px;
 }
-.text2 input[type="text"], .text2 input[type="email"], .text2 textarea {
+.text2 input[type="text"], .text2 input[type="password"], .text2 input[type="email"], .text2 textarea {
 	width: 97.7%;
 	margin: 12px 0;
 	border: 1px solid rgba(192, 192, 192, 0.61);
@@ -1838,10 +1845,11 @@ span.mail a:hover{
 	height:180px;
 }
 .text2 input[type="text"]:hover,.text2 textarea:hover,.contact-to input[type="text"]:hover,
+.text2 input[type="password"]:hover,.text2 textarea:hover,.contact-to input[type="password"]:hover,
 .text2 input[type="email"]:hover, .contact-to input[type="email"]:hover{
 	border: 1px solid rgba(228, 93, 93, 0.33);
 }
-.contact-form input[type="submit"] {
+.contact-form input[type="submit"], .contact-form button[type="submit"] {
 	background: #E45D5D;
 	color: #FFF;
 	padding: .9em 3em;
@@ -1864,7 +1872,7 @@ span.mail a:hover{
 	cursor: pointer;
 	font-family: 'Open Sans', sans-serif;
 }
-.contact-form input[type="submit"]:hover{
+.contact-form input[type="submit"]:hover, .contact-form button[type="submit"]:hover{
 	background: #1C1C20;
 	border-bottom: 4px solid #333;
 }
@@ -1918,7 +1926,8 @@ span.mail a:hover{
 	.details-left-info {
 		width: 52%;
 	}
-	.contact-to input[type="text"], .contact-to input[type="email"] {
+	.contact-to input[type="text"], .contact-to input[type="email"],
+	.contact-to input[type="password"] {
 		width: 30.4%;
 	}
 }
@@ -1935,10 +1944,12 @@ span.mail a:hover{
 	.details-left-info {
 		width: 47%;
 	}
-	.contact-to input[type="text"], .contact-to input[type="email"] {
+	.contact-to input[type="text"], .contact-to input[type="email"],
+	.contact-to input[type="password"] {
 		width: 29.78%;
 	}
-	.text2 input[type="text"], .text2 input[type="email"], .text2 textarea {
+	.text2 input[type="text"], .text2 input[type="email"],
+	.text2 input[type="password"] ,.text2 textarea {
 		width: 97.2%;
 		resize:none;
 	}
@@ -1994,13 +2005,16 @@ span.mail a:hover{
 		display:none;
 	}
 	.contact-to input[type="text"]:nth-child(2), .contact-to input[type="text"]:nth-child(3),
+	.contact-to input[type="password"]:nth-child(2), .contact-to input[type="password"]:nth-child(3),
 	.contact-to input[type="email"]:nth-child(2), .contact-to input[type="email"]:nth-child(3) {
 		margin-left: 0px;
 	}
-	.contact-to input[type="text"], .contact-to input[type="email"] {
+	.contact-to input[type="text"], .contact-to input[type="email"],
+	.contact-to input[type="password"] {
 		width: 96%;
 	}
-	.text2 input[type="text"], .text2 input[type="email"], .text2 textarea {
+	.text2 input[type="text"], .text2 input[type="password"],
+	.text2 input[type="email"], .text2 textarea {
 		width: 96.2%;
 		resize: none;
 	}
@@ -2036,10 +2050,12 @@ span.mail a:hover{
 	.mid-grid-right {
 		padding: 1.5em 0 0.8em 0;
 	}
-	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"] {
+	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"],
+	.mid-grid-left input[type="password"] {
 		width: 100%;
 	}
-	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus {
+	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus,
+	.mid-grid-left input[type="password"]:focus {
 		width: 130%;
 	}
 	.bottom-bottom-grid {
@@ -2126,14 +2142,17 @@ span.mail a:hover{
 		display:none;
 	}
 	.contact-to input[type="text"]:nth-child(2), .contact-to input[type="text"]:nth-child(3),
-	.contact-to input[type="email"]:nth-child(2), .contact-to input[type="email"]:nth-child(3)  {
+	.contact-to input[type="email"]:nth-child(2), .contact-to input[type="email"]:nth-child(3),
+	.contact-to input[type="password"]:nth-child(2), .contact-to input[type="password"]:nth-child(3) {
 		margin-left: 0px;
 	}
 	.contact-to input[type="text"],
+	.contact-to input[type="password"],
 	.contact-to input[type="email"] {
 		width: 96%;
 	}
-	.text2 input[type="text"], .text2 input[type="email"], .text2 textarea {
+	.text2 input[type="text"],.text2 input[type="password"],
+	.text2 input[type="email"], .text2 textarea {
 		width: 96.2%;
 		resize: none;
 	}
@@ -2171,10 +2190,12 @@ span.mail a:hover{
 	.mid-grid-right {
 		padding: 1em 0 0.5em 0;
 	}
-	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"] {
+	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"],
+	.mid-grid-left input[type="password"] {
 		width: 100%;
 	}
-	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus {
+	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus,
+	.mid-grid-left input[type="password"]:focus {
 		width: 130%;
 	}
 	.bottom-bottom-grid {
@@ -2288,14 +2309,17 @@ span.mail a:hover{
 		display:none;
 	}
 	.contact-to input[type="text"]:nth-child(2), .contact-to input[type="text"]:nth-child(3), 
-	.contact-to input[type="email"]:nth-child(2), .contact-to input[type="email"]:nth-child(3) {
+	.contact-to input[type="email"]:nth-child(2), .contact-to input[type="email"]:nth-child(3),
+	.contact-to input[type="password"]:nth-child(2), .contact-to input[type="password"]:nth-child(3),  {
 		margin-left: 0px;
 	}
-	.contact-to input[type="text"], .contact-to input[type="email"]  {
+	.contact-to input[type="text"], .contact-to input[type="email"],
+	.contact-to input[type="password"]  {
 		width: 95%;
 		-webkit-appearance:none;
 	}
-	.text2 input[type="text"], .text2 input[type="email"], .text2 textarea {
+	.text2 input[type="text"], .text2 input[type="password"], 
+	.text2 input[type="email"], .text2 textarea {
 		width: 95%;
 		resize: none;
 		-webkit-appearance:none;
@@ -2338,10 +2362,12 @@ span.mail a:hover{
 	.mid-grid-right {
 		padding: 1em 0 0.5em 0;
 	}
-	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"] {
+	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"],
+	.mid-grid-left input[type="password"] {
 		width: 100%;
 	}
-	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus {
+	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus,
+	.mid-grid-left input[type="password"]:focus {
 		width: 130%;
 	}
 	.bottom-bottom-grid {
@@ -2498,11 +2524,13 @@ span.mail a:hover{
 		width: 87%;
 		padding: 0.5em 1em;
 	}
-	.login-right input[type="text"], .login-right input[type="email"] {
+	.login-right input[type="text"], .login-right input[type="email"],
+	.login-right input[type="password"] {
 		width: 93%;
 	}
 	.register-top-grid input[type="text"], .register-bottom-grid input[type="text"],
-	.register-top-grid input[type="email"], .register-bottom-grid input[type="email"] {
+	.register-top-grid input[type="email"], .register-bottom-grid input[type="email"],
+	.register-top-grid input[type="password"], .register-bottom-grid input[type="password"] {
 		width: 96.8%;
 	}
 	.details-left-slider {
@@ -2518,17 +2546,20 @@ span.mail a:hover{
 		display:none;
 	}
 	.contact-to input[type="text"]:nth-child(2), .contact-to input[type="text"]:nth-child(3),
+	.contact-to input[type="password"]:nth-child(2), .contact-to input[type="password"]:nth-child(3),
 	.contact-to input[type="email"]:nth-child(2), .contact-to input[type="email"]:nth-child(3) {
 		margin-left: 0px;
 	}
 	.contact-to input[type="text"],
+	.contact-to input[type="password"],
 	.contact-to input[type="email"] {
 		width: 92.5%;
 		-webkit-appearance: none;
 		padding: 10px;
 		margin: 8px 0;
 	}
-	.text2 input[type="text"], .text2 input[type="email"], .text2 textarea {
+	.text2 input[type="text"], .text2 input[type="password"],
+	.text2 input[type="email"], .text2 textarea {
 		width: 92%;
 		resize: none;
 		-webkit-appearance: none;
@@ -2572,10 +2603,12 @@ span.mail a:hover{
 	.mid-grid-right {
 		padding: 0em 0 0.5em 0;
 	}
-	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"] {
+	.mid-grid-left input[type="text"], .mid-grid-left input[type="email"],
+	.mid-grid-left input[type="password"] {
 		width: 100%;
 	}
-	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus {
+	.mid-grid-left input[type="text"]:focus, .mid-grid-left input[type="email"]:focus,
+	.mid-grid-left input[type="password"]:focus {
 		width: 130%;
 	}
 	.bottom-bottom-grid {

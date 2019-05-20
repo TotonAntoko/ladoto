@@ -71,3 +71,7 @@ Route::get('/contact', function () {
 // Route::get('/admin/brand', function () {
 //     return view ('/admin/brand');
 // });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
