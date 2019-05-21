@@ -16,6 +16,8 @@
 // Route::get('/', function () {
 //     return view('frontEnd.index');
 // });
+Auth::routes();
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/category/{slug}', 'HomeController@category')->name('category');
@@ -85,6 +87,12 @@ Route::group(['prefix' => 'basket'], function () {
 //     return view ('/admin/brand');
 // });
 
-Auth::routes();
+// Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+Route::match(['get', 'post'], '/admin','AdminController@login');
+
+Route::group(['middleware' => ['adminlogin']], function () {
+	Route::get('/admin/dashboard','AdminController@dashboard');	
+});
