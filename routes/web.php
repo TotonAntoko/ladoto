@@ -13,9 +13,13 @@
 /**
  * Customer routes
  */
-Route::get('/', function () {
-    return view('frontEnd.index');
-});
+// Route::get('/', function () {
+//     return view('frontEnd.index');
+// });
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('/category/{slug}', 'HomeController@category')->name('category');
+Route::get('/product/{slug}', 'HomeController@product')->name('product');
 
 // Route::get('/login', function () {
 //     return view('frontEnd.login');
@@ -25,18 +29,27 @@ Route::get('/', function () {
 //     return view('frontEnd.register');
 // });
 
-Route::get('/product', function () {
-    return view('frontEnd.product');
-});
+// Route::get('/category/{slug}', 'HomeController@category')->name('category');
+// Route::get('/product/{slug}', 'HomeController@product')->name('product');
+// Route::get('/product', function () {
+//     return view('frontEnd.product');
+// });
 
-Route::get('/details', function () {
-    return view('frontEnd.details');
-});
+// Route::get('/details', function () {
+//     return view('frontEnd.details');
+// });
 
-Route::get('/contact', function () {
-    return view('frontEnd.contact');
-});
+// Route::get('/contact', function () {
+//     return view('frontEnd.contact');
+// });
 
+Route::group(['prefix' => 'basket'], function () {
+    Route::get('/', 'BasketController@index')->name('basket');
+
+    Route::post('/create', 'BasketController@create')->name('basket.create');
+    Route::delete('/destroy', 'BasketController@destroy')->name('basket.destroy');
+    Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
+});
 
 /**
  * Admin routes
@@ -74,4 +87,4 @@ Route::get('/contact', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
