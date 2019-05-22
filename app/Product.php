@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -13,6 +14,17 @@ class Product extends Model
 
 
     protected $appends = ["thumbs"];
+
+    use Sluggable;
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'product_name'
+            ]
+        ];
+    }
 
 
     public function categories()
@@ -29,9 +41,8 @@ class Product extends Model
 
     public function getThumbsAttribute()
     {
-        $images = asset("frontEnd/images/".$this->images()->first()->name);
-        $name = $this->product_name;
-        return '<img src="' .$images.'" class="img-thumbnail" width="250" title="'.$name.'" />';
+        $images = asset("uploads/thumb_".$this->images()->first()->name);
+        return '<img src="' .$images.'" class="img-thumbnail" width="100" />';
     }
 
 

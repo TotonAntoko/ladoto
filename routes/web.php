@@ -94,5 +94,10 @@ Route::group(['prefix' => 'basket'], function () {
 Route::match(['get', 'post'], '/admin','AdminController@login');
 
 Route::group(['middleware' => ['adminlogin']], function () {
-	Route::get('/admin/dashboard','AdminController@dashboard');	
+    Route::get('/admin/dashboard','AdminController@dashboard');
+    Route::group(["namespace" => "Admin"], function (){
+        Route::resource("/admin-users","UsersController");
+        Route::resource("/admin-category","CategoryController");
+        Route::resource("/admin-products","ProductController");
+    });
 });

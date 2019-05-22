@@ -36,8 +36,18 @@
             </a>
         </li>
         <li>
-            <a href="/admin/customer">
+            <a href="/admin-users">
                 <i class="fa fa-user"></i> <span>Customer</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin-category">
+                <i class="fa fa-user"></i> <span>Category</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin-products">
+                <i class="fa fa-user"></i> <span>Products</span>
             </a>
         </li>
         <li>

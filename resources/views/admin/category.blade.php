@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Customer')
+@section('title', 'Category')
 
 @section('content')
 
@@ -10,7 +10,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Data Customer
+            Data Category
             {{-- <small>advanced tables</small> --}}
         </h1>
         <ol class="breadcrumb">
@@ -25,7 +25,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Data Customer</h3>
+                        <h3 class="box-title">Data Category</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -35,45 +35,35 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama</th>
-                                    {{-- <th>Surname</th> --}}
-                                    <th>Email</th>
-                                    {{-- <th>Remember Token</th> --}}
+                                    <th>Nama Kategori</th>
+                                    <th>Slug</th>
                                     <th>Created At</th>
-                                    {{-- <th>Status</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach ($users as $user)
+                              @foreach ($categories as $category)
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    {{-- <td>{{$user->surname}}</td> --}}
-                                    <td>{{$user->email}}</td>
-                                    {{-- <td>{{$user->remember_token}}</td> --}}
-                                    <td>{{$user->created_at}}</td>
-                                    {{-- <td>{{$user->status}}</td> --}}
+                                    <td>{{$category->id}}</td>
+                                    <td>{{$category->category_name}}</td>
+                                    <td>{{$category->slug}}</td>
+                                    <td>{{$category->created_at}}</td>
                                     <td>
                                         <a href="" class="btn btn-success btn-sm">Active</a>
                                         <a href="" class="btn btn-warning btn-sm">Suspend</a>
                                         <button class="edit-modal btn btn-warning btn-sm" 
                                             data-toggle="modal"
                                             data-target="#editModal"
-                                            data-id="{{ $user->id }}"
-                                            data-name="{{ $user->name }}"
-                                            data-email="{{ $user->email }}"
-                                            {{-- data-kota="{{ $user->created_at }}" --}}
-                                            {{-- data-negara="{{ $user->negara }}" --}}
-                                            {{-- data-no_telp="{{ $user->no_telp }}" --}}
-                                            {{-- data-status="{{ $user->status }}" --}}
+                                            data-id="{{ $category->id }}"
+                                            data-category_name="{{ $category->category_name }}"
+                                            data-slug="{{ $category->slug }}"
                                             >
                                             Edit
                                         </button>
                                         <button class="delete-modal btn btn-danger btn-sm"
                                             data-toggle="modal" 
                                             data-target="#deleteModal"
-                                            data-delete-id="{{ $user->id }}">Delete</button>
+                                            data-delete-id="{{ $category->id }}">Delete</button>
                                     </td>
                                 </tr>
                               @endforeach
@@ -105,32 +95,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form  action="/admin/customer/create" method="post">
+                <form  action="{{route('admin-category.store')}}" method="POST">
                   {{csrf_field()}}
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" name="nama" class="form-control" id="nama" aria-describedby="emailHelp"
+                        <label for="nama">Nama Kategory</label>
+                        <input type="text" name="category_name" class="form-control" id="category_name" aria-describedby="emailHelp"
                             placeholder="Nama" autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat">
-                    </div>
-                    <div class="form-group">
-                        <label for="kota">Kota</label>
-                        <input type="text" name="kota" class="form-control" id="kota" placeholder="Kota">
-                    </div>
-                    <div class="form-group">
-                        <label for="negara">Negara</label>
-                        <input type="text" name="negara" class="form-control" id="negara" placeholder="Negara">
-                    </div>
-                    <div class="form-group">
-                        <label for="no_telp">No Telepon</label>
-                        <input type="text" name="no_telp" class="form-control" id="no_telp" placeholder="No Telepon">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <input type="text" name="status" class="form-control" id="status" placeholder="Status">
                     </div>
             </div>
             <div class="modal-footer">
@@ -148,7 +118,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -157,30 +127,10 @@
                 <form>
                     <input type="text" id="id-edit" hidden>
                     <div class="form-group">
-                        <label for="nama-edit">Nama</label>
-                        <input type="text" class="form-control" id="name-edit" aria-describedby="emailHelp"
+                        <label for="nama-edit">Nama Kategory</label>
+                        <input type="text" class="form-control" id="category_name-edit" aria-describedby="emailHelp"
                             placeholder="Nama" autofocus>
                     </div>
-                    <div class="form-group">
-                        <label for="alamat-edit">Email</label>
-                        <input type="text" class="form-control" id="email-edit" placeholder="Alamat">
-                    </div>
-                    {{-- <div class="form-group">
-                        <label for="kota-edit">Kota</label>
-                        <input type="text" class="form-control" id="kota-edit" placeholder="Kota">
-                    </div>
-                    <div class="form-group">
-                        <label for="negara-edit">Negara</label>
-                        <input type="text" class="form-control" id="negara-edit" placeholder="Negara">
-                    </div>
-                    <div class="form-group">
-                        <label for="noTelp-edit">No Telepon</label>
-                        <input type="text" class="form-control" id="noTelp-edit" placeholder="No Telepon">
-                    </div>
-                    <div class="form-group">
-                        <label for="status-edit">Status</label>
-                        <input type="text" class="form-control" id="status-edit" placeholder="Status">
-                    </div> --}}
                 </form>
             </div>
             <div class="modal-footer">
@@ -245,8 +195,8 @@
     $(document).ready(function() {
         $('.edit-modal').click(function() {
             $('#id-edit').val($(this).data('id'));
-            $('#name-edit').val($(this).data('name'));
-            $('#email-edit').val($(this).data('email'));
+            $('#category_name-edit').val($(this).data('category_name'));
+            // $('#email-edit').val($(this).data('email'));
             // $('#kota-edit').val($(this).data('kota'));
             // $('#negara-edit').val($(this).data('negara'));
             // $('#noTelp-edit').val($(this).data('no_telp'));
@@ -259,15 +209,15 @@
         });
         $('.update').click(function() {
             $.ajax({
-                url: '/admin-users/update',
+                url: '/admin-category/update',
                 type: 'PUT',
                 headers: {
                     'X-CSRF-TOKEN': $('#token').attr('content')
                 },
                 data: {
                     'id': $('#id-edit').val(),
-                    'name': $('#name-edit').val(),
-                    'email': $('#email-edit').val()
+                    'category_name': $('#category_name-edit').val()
+                    // 'email': $('#email-edit').val()
                     // 'kota': $('#kota-edit').val(),
                     // 'negara': $('#negara-edit').val(),
                     // 'no_telp': $('#noTelp-edit').val(),
@@ -300,7 +250,7 @@
         });
         $('.delete').click(function() {
             $.ajax({
-                url: '/admin-users/destroy',
+                url: '/admin-category/destroy',
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('#token').attr('content')

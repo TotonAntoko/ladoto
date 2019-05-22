@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Customer')
+@section('title', 'Product')
 
 @section('content')
 
@@ -10,12 +10,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Data Customer
+            Data Products
             {{-- <small>advanced tables</small> --}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Data Customer</li>
+            <li class="active">Data Products</li>
         </ol>
     </section>
 
@@ -25,7 +25,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Data Customer</h3>
+                        <h3 class="box-title">Data Products</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -35,45 +35,47 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama</th>
-                                    {{-- <th>Surname</th> --}}
-                                    <th>Email</th>
-                                    {{-- <th>Remember Token</th> --}}
+                                    <th>Image</th>
+                                    <th>Category</th>
+                                    <th>Product Name</th>
+                                    <th>Original Price</th>
+                                    <th>Product Price</th>
+                                    <th>Product Details</th>
                                     <th>Created At</th>
-                                    {{-- <th>Status</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach ($users as $user)
+                              @foreach ($products as $product)
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    {{-- <td>{{$user->surname}}</td> --}}
-                                    <td>{{$user->email}}</td>
-                                    {{-- <td>{{$user->remember_token}}</td> --}}
-                                    <td>{{$user->created_at}}</td>
-                                    {{-- <td>{{$user->status}}</td> --}}
+                                    <td>{{ $product->id }}</td>
+                                    <td>{!! $product->thumbs !!}</td>
+                                    <td> {{ $product->categories->category_name }}  </td>
+                                    <td>{{ $product->product_name }}</td>
+                                    <td>{{ number_format($product->original_price) }} ₺</td>
+                                    <td>{{ number_format($product->product_price) }} ₺</td>
+                                    <td>{!! str_limit($product->product_detail, 30) !!}</td>
+                                    <td>{{ $product->created_at }}</td>
                                     <td>
                                         <a href="" class="btn btn-success btn-sm">Active</a>
                                         <a href="" class="btn btn-warning btn-sm">Suspend</a>
                                         <button class="edit-modal btn btn-warning btn-sm" 
                                             data-toggle="modal"
                                             data-target="#editModal"
-                                            data-id="{{ $user->id }}"
-                                            data-name="{{ $user->name }}"
-                                            data-email="{{ $user->email }}"
-                                            {{-- data-kota="{{ $user->created_at }}" --}}
-                                            {{-- data-negara="{{ $user->negara }}" --}}
-                                            {{-- data-no_telp="{{ $user->no_telp }}" --}}
-                                            {{-- data-status="{{ $user->status }}" --}}
+                                            data-id="{{ $product->id }}"
+                                            data-category="{{ $product->category_id }}"
+                                            data-product="{{ $product->product_name }}"
+                                            data-oriprice="{{ $product->original_price }}"
+                                            data-prodprice="{{ $product->product_price }}"
+                                            data-detail="{{ $product->product_detail }}"
+                                            {{-- data-createdAt="{{ $product->created_at }}" --}}
                                             >
                                             Edit
                                         </button>
                                         <button class="delete-modal btn btn-danger btn-sm"
                                             data-toggle="modal" 
                                             data-target="#deleteModal"
-                                            data-delete-id="{{ $user->id }}">Delete</button>
+                                            data-delete-id="{{ $product->id }}">Delete</button>
                                     </td>
                                 </tr>
                               @endforeach
@@ -99,38 +101,48 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form  action="/admin/customer/create" method="post">
-                  {{csrf_field()}}
+                <form  action="{{route('admin-products.store')}}" method="POST" enctype="multipart/form-data">
+                    {{csrf_field()}}
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" name="nama" class="form-control" id="nama" aria-describedby="emailHelp"
+                        <label for="image">Product Image</label>
+                        <input type="file" name="img[]" class="form-control-file" id="img">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Kategori</label>
+                        @if(count($categoryMenu)>0)
+                        <select name="category_id" class="form-control" id="category_id"
+                            aria-placeholder="Pilih Kategori">
+                            <option value="">--- Pilih Kategori ---</option>
+                            @foreach ($categoryMenu as $list)
+                            <option value="{{$list->id}}">{{$list->category_name}}</option>
+                            @endforeach
+                        </select>
+                        @else
+                        <p>Tidak ada pilihan Kategori</p>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Product Name</label>
+                        <input type="text" name="product_name" class="form-control" id="product_name" aria-describedby="emailHelp"
                             placeholder="Nama" autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat">
+                        <label for="alamat">Original Price</label>
+                        <input type="text" name="original_price" class="form-control" id="original_price" placeholder="Alamat">
                     </div>
                     <div class="form-group">
-                        <label for="kota">Kota</label>
-                        <input type="text" name="kota" class="form-control" id="kota" placeholder="Kota">
+                        <label for="kota">Product Price</label>
+                        <input type="text" name="product_price" class="form-control" id="product_price" placeholder="Kota">
                     </div>
                     <div class="form-group">
-                        <label for="negara">Negara</label>
-                        <input type="text" name="negara" class="form-control" id="negara" placeholder="Negara">
-                    </div>
-                    <div class="form-group">
-                        <label for="no_telp">No Telepon</label>
-                        <input type="text" name="no_telp" class="form-control" id="no_telp" placeholder="No Telepon">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <input type="text" name="status" class="form-control" id="status" placeholder="Status">
+                        <label for="negara">Product Details</label>
+                        <input type="text" name="product_detail" class="form-control" id="product_detail" placeholder="Negara">
                     </div>
             </div>
             <div class="modal-footer">
@@ -154,33 +166,43 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <input type="text" id="id-edit" hidden>
+                <form enctype="multipart/form-data">
+                    <input type="text" id="id-edit">
                     <div class="form-group">
-                        <label for="nama-edit">Nama</label>
-                        <input type="text" class="form-control" id="name-edit" aria-describedby="emailHelp"
+                        <label for="image">Product Image</label>
+                        <input type="file" name="img[]" class="form-control-file" id="img-edit[]">
+                    </div>
+                    <div id="category_id-edit" class="form-group">
+                        <label for="">Kategori</label>
+                        @if(count($categoryMenu)>0)
+                        <select name="category_id" class="form-control" id="category_id-select"
+                            aria-placeholder="Pilih Kategori">
+                            <option value="">--- Pilih Kategori ---</option>
+                            @foreach ($categoryMenu as $list)
+                            <option value="{{$list->id}}">{{$list->category_name}}</option>
+                            @endforeach
+                        </select>
+                        @else
+                        <p>Tidak ada pilihan Kategori</p>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Product Name</label>
+                        <input type="text" name="product_name" class="form-control" id="product_name-edit" aria-describedby="emailHelp"
                             placeholder="Nama" autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="alamat-edit">Email</label>
-                        <input type="text" class="form-control" id="email-edit" placeholder="Alamat">
-                    </div>
-                    {{-- <div class="form-group">
-                        <label for="kota-edit">Kota</label>
-                        <input type="text" class="form-control" id="kota-edit" placeholder="Kota">
+                        <label for="alamat">Original Price</label>
+                        <input type="text" name="original_price" class="form-control" id="original_price-edit" placeholder="Alamat">
                     </div>
                     <div class="form-group">
-                        <label for="negara-edit">Negara</label>
-                        <input type="text" class="form-control" id="negara-edit" placeholder="Negara">
+                        <label for="kota">Product Price</label>
+                        <input type="text" name="product_price" class="form-control" id="product_price-edit" placeholder="Kota">
                     </div>
                     <div class="form-group">
-                        <label for="noTelp-edit">No Telepon</label>
-                        <input type="text" class="form-control" id="noTelp-edit" placeholder="No Telepon">
+                        <label for="negara">Product Details</label>
+                        <input type="text" name="product_detail" class="form-control" id="product_detail-edit" placeholder="Negara">
                     </div>
-                    <div class="form-group">
-                        <label for="status-edit">Status</label>
-                        <input type="text" class="form-control" id="status-edit" placeholder="Status">
-                    </div> --}}
                 </form>
             </div>
             <div class="modal-footer">
@@ -241,16 +263,19 @@
 
 </script>
 {{-- CRUD AJAX --}}
+
 <script>
     $(document).ready(function() {
         $('.edit-modal').click(function() {
+            // $('#id-edit').val(23);
             $('#id-edit').val($(this).data('id'));
-            $('#name-edit').val($(this).data('name'));
-            $('#email-edit').val($(this).data('email'));
-            // $('#kota-edit').val($(this).data('kota'));
-            // $('#negara-edit').val($(this).data('negara'));
-            // $('#noTelp-edit').val($(this).data('no_telp'));
-            // $('#status-edit').val($(this).data('status'));
+            // $('#category_id-edit select').val('7');
+            $('#category_id-edit select').val($(this).data('category'));
+            $('#product_name-edit').val($(this).data('product'));
+            $('#original_price-edit').val($(this).data('oriprice'));
+            $('#product_price-edit').val($(this).data('prodprice'));
+            $('#product_detail-edit').val($(this).data('detail'));
+            // $('#status-edit').val($(this).data('createdAt'));
             // $('#editModal').modal('show');
         });
         $('.delete-modal').click(function() {
@@ -259,18 +284,19 @@
         });
         $('.update').click(function() {
             $.ajax({
-                url: '/admin-users/update',
+                url: '/admin-products/update',
                 type: 'PUT',
                 headers: {
                     'X-CSRF-TOKEN': $('#token').attr('content')
                 },
                 data: {
                     'id': $('#id-edit').val(),
-                    'name': $('#name-edit').val(),
-                    'email': $('#email-edit').val()
-                    // 'kota': $('#kota-edit').val(),
-                    // 'negara': $('#negara-edit').val(),
-                    // 'no_telp': $('#noTelp-edit').val(),
+                    'img': $('#img-edit').val(),
+                    'category_id': $('#category_id-select').val(),
+                    'product_name': $('#product_name-edit').val(),
+                    'product_price': $('#product_price-edit').val(),
+                    'original_price': $('#original_price-edit').val(),
+                    'product_detail': $('#product_detail-edit').val(),
                     // 'status': $('#status-edit').val()
                 },
                 success: function(result) {
@@ -300,7 +326,7 @@
         });
         $('.delete').click(function() {
             $.ajax({
-                url: '/admin-users/destroy',
+                url: '/admin-product/destroy',
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('#token').attr('content')
