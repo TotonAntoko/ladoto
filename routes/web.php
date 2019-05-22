@@ -18,11 +18,13 @@
 // });
 Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/category/{slug}', 'HomeController@category')->name('category');
 Route::get('/product/{slug}', 'HomeController@product')->name('product');
 
+Route::get('logout','Auth\LoginController@logout');
 // Route::get('/login', function () {
 //     return view('frontEnd.login');
 // });
@@ -52,6 +54,14 @@ Route::group(['prefix' => 'basket'], function () {
     Route::delete('/destroy', 'BasketController@destroy')->name('basket.destroy');
     Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
 });
+
+Route::get('/payment', 'PaymentController@index')->name('payment');
+Route::post('/successful', 'PaymentController@pay')->name('pay');
+
+Route::get('/orders', 'OrderController@index')->name('orders');
+Route::get('/orders/{id}', 'OrderController@detail')->name('order');
+
+Route::resource('profile', 'UserDetailController')->middleware('auth');
 
 /**
  * Admin routes

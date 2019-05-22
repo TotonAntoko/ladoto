@@ -70,8 +70,10 @@
                                                style="width: 50px; margin-right: 10px;">
                                     </div>
                                 </div>
-                                <div class="add_to_cart_button red_button"><a
-                                            href="{{ route('basket.create', ['id' => $product->id]) }}">add to cart</a>
+                                <div class="add_to_cart_button red_button">
+                                    <a href="{{ route('basket.create', ['id' => $product->id]) }}">
+                                        add to cart
+                                    </a>
                                 </div>
                             </div>
                             </a>

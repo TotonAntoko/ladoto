@@ -188,8 +188,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nama">Product Name</label>
-                        <input type="text" name="product_name" class="form-control" id="product_name-edit" aria-describedby="emailHelp"
-                            placeholder="Nama" autofocus>
+                        <input type="text" name="product_name" class="form-control" id="product_name-edit" aria-describedby="emailHelp" placeholder="Nama" autofocus>
                     </div>
                     <div class="form-group">
                         <label for="alamat">Original Price</label>
