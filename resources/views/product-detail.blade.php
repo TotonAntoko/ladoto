@@ -73,19 +73,29 @@
                         <p>{!! $product->product_detail !!}</p>
                     </div>
 
-                    <div class="original_price">{{ number_format($product->original_price) }} ₺</div>
-                    <div class="product_price">{{ number_format($product->product_price) }} ₺</div>
+                    <div class="original_price">Rp.{{ number_format($product->original_price) }} </div>
+                    <div class="product_price">Rp. {{ number_format($product->product_price) }} </div>
 
-                    <div class="product_details_title">
-                        <span>Quantity:</span>
-                        <input type="number" class="quantity" id="quantity" name="quantity" value="1"
-                               style="width: 50px; margin-right: 10px;">
+                    @if ($product->stok == 0)
+                        <br>
+                        <br>
+                        <span class="text-danger">HABIS</span>
+                    @else
+                        <div class="product_details_title">
+                            <span>Quantity:</span>
+                            <input type="number" class="quantity" id="quantity" name="quantity" value="1" min="1" max="{{ $product->stok }}" style="width: 50px; margin-right: 10px;">
+                        </div>
+                        <h6>
+                            <p>Tersedia : {{ $product->stok }} PCS</p>
+                        </h6>
+                        <div class="red_button" style="margin-top: 30px;">
+                            <a href="{{ route('basket.create', ['id' => $product->id]) }}">add to cart</a>
+                        </div>
+                    @endif
+                    
+                    
 
-                    </div>
-
-                    <div class="red_button" style="margin-top: 30px;">
-                        <a href="{{ route('basket.create', ['id' => $product->id]) }}">add to cart</a>
-                    </div>
+                    
                 </div>
             </div>
         </div>

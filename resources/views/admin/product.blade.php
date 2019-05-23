@@ -41,6 +41,7 @@
                                     <th>Original Price</th>
                                     <th>Product Price</th>
                                     <th>Product Details</th>
+                                    <th>Stok</th>
                                     <th>Created At</th>
                                     <th>Action</th>
                                 </tr>
@@ -55,6 +56,7 @@
                                     <td>{{ number_format($product->original_price) }} ₺</td>
                                     <td>{{ number_format($product->product_price) }} ₺</td>
                                     <td>{!! str_limit($product->product_detail, 30) !!}</td>
+                                    <td>{{ $product->stok }}</td>
                                     <td>{{ $product->created_at }}</td>
                                     <td>
                                         <a href="" class="btn btn-success btn-sm">Active</a>
@@ -67,6 +69,7 @@
                                             data-product="{{ $product->product_name }}"
                                             data-oriprice="{{ $product->original_price }}"
                                             data-prodprice="{{ $product->product_price }}"
+                                            data-stok="{{ $product->stok }}"
                                             data-detail="{{ $product->product_detail }}"
                                             {{-- data-createdAt="{{ $product->created_at }}" --}}
                                             >
@@ -141,6 +144,10 @@
                         <input type="text" name="product_price" class="form-control" id="product_price" placeholder="Kota">
                     </div>
                     <div class="form-group">
+                        <label for="kota">Stok</label>
+                        <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok">
+                    </div>
+                    <div class="form-group">
                         <label for="negara">Product Details</label>
                         <input type="text" name="product_detail" class="form-control" id="product_detail" placeholder="Negara">
                     </div>
@@ -199,8 +206,12 @@
                         <input type="text" name="product_price" class="form-control" id="product_price-edit" placeholder="Kota">
                     </div>
                     <div class="form-group">
+                        <label for="stok-edit">Stok</label>
+                        <input type="text" name="stok" class="form-control" id="stok-edit" placeholder="Stok">
+                    </div>
+                    <div class="form-group">
                         <label for="negara">Product Details</label>
-                        <input type="text" name="product_detail" class="form-control" id="product_detail-edit" placeholder="Negara">
+                        <input type="text" name="product_detail" class="form-control" id="product_detail-edit" placeholder="Details">
                     </div>
                 </form>
             </div>
@@ -269,6 +280,7 @@
             // $('#id-edit').val(23);
             $('#id-edit').val($(this).data('id'));
             // $('#category_id-edit select').val('7');
+            $('#stok-edit').val($(this).data('stok'));
             $('#category_id-edit select').val($(this).data('category'));
             $('#product_name-edit').val($(this).data('product'));
             $('#original_price-edit').val($(this).data('oriprice'));
@@ -291,6 +303,7 @@
                 data: {
                     'id': $('#id-edit').val(),
                     'img': $('#img-edit').val(),
+                    'stok': $('#stok-edit').val(),
                     'category_id': $('#category_id-select').val(),
                     'product_name': $('#product_name-edit').val(),
                     'product_price': $('#product_price-edit').val(),

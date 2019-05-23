@@ -63,18 +63,36 @@
                                                     href="/product/{{$product->slug}}">{{ $product->product_name }}</a>
                                         </h6>
 
-                                        <div class="product_price">{{ number_format($product->product_price) }} ₺<span>{{ number_format($product->original_price ) }}
-                                                ₺</span></div>
+                                        <div class="product_price">
+                                            {{ number_format($product->product_price) }} ₺
+                                            <span>
+                                                {{ number_format($product->original_price ) }}₺
+                                            </span>
+                                        </div>
 
-                                        <input type="number" class="quantity" id="quantity" name="quantity" value="1"
-                                               style="width: 50px; margin-right: 10px;">
+                                        @if ($product->stok <= 0)
+                                            
+                                        @else
+                                            <input type="number" class="quantity" id="quantity" name="quantity" value="1" min="1" max="{{ $product->stok }}" style="width: 50px; margin-right: 10px;">
+                                        @endif
+
+                                        {{-- <h6>
+                                            <p>Tersedia : {{ $product->stok }} PCS</p>
+                                        </h6> --}}
                                     </div>
                                 </div>
-                                <div class="add_to_cart_button red_button">
-                                    <a href="{{ route('basket.create', ['id' => $product->id]) }}">
-                                        add to cart
-                                    </a>
-                                </div>
+                                @if ($product->stok <= 0)
+                                    <div class="add_to_cart_button red_button">
+                                        <span class="text-white">HABIS</span>
+                                    </div>
+                                @else
+                                    <div class="add_to_cart_button red_button">
+                                        <a href="{{ route('basket.create', ['id' => $product->id]) }}">
+                                            add to cart
+                                        </a>
+                                    </div>
+                                @endif
+                                
                             </div>
                             </a>
                         @endforeach

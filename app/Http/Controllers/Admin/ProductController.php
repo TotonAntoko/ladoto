@@ -55,11 +55,12 @@ class ProductController extends Controller
                 "product_detail" => "required",
                 "original_price" => "required|numeric",
                 "product_price" => "required|numeric",
+                "stok" => "required|numeric",
                 "img" => "required"
             ]);
         // dd($request->file("img"));
 
-        $input = $request->only('category_id', 'product_name', 'product_detail', 'original_price', 'product_price');
+        $input = $request->only('category_id', 'product_name', 'product_detail', 'original_price', 'product_price', 'stok');
 
         $product = Product::create($input);
 
@@ -133,7 +134,7 @@ class ProductController extends Controller
         //         "product_price" => "required|numeric"
 
         //     ]);
-        $input = $request->only('category_id', 'product_name', 'product_detail', 'original_price', 'product_price');
+        $input = $request->only('category_id', 'product_name', 'product_detail', 'original_price', 'product_price', 'stok');
         // $input = $request->only('category_id', 'product_name', 'product_detail', 'original_price');
         $id = $request->input('id');
         $products = Product::find($id);
