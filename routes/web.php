@@ -107,7 +107,12 @@ Route::group(['middleware' => ['adminlogin']], function () {
     Route::get('/admin/dashboard','AdminController@dashboard');
     Route::group(["namespace" => "Admin"], function (){
         Route::resource("/admin-users","UsersController");
+        Route::get("admin/user/load","UsersController@loadData")->name('admin.user');
+
         Route::resource("/admin-category","CategoryController");
+        Route::get("admin/category/load","CategoryController@loadData")->name('admin.category');
+
         Route::resource("/admin-products","ProductController");
+        Route::get("admin/product/load","ProductController@loadData")->name('admin.product');
     });
 });

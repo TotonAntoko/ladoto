@@ -26,6 +26,10 @@
         <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css')}}">
 
+    {{-- SweetAlert2 --}}
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <link href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

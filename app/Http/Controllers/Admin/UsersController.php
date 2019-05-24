@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
@@ -18,9 +19,28 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $categoryMenu = Category::orderBy('category_name','asc')->get();
-        $users = User::orderBy('id','desc')->paginate(5);
-        return view('admin.customer', compact('users','categoryMenu'));
+        // $categoryMenu = Category::orderBy('category_name','asc')->get();
+        // $users = User::orderBy('id','desc')->paginate(5);
+        // return view('admin.customer', compact('users','categoryMenu'));
+        return view('admin.customer');
+    }
+
+    public function loadData(){
+        $customer = User::all();
+ 
+        return Datatables::of($customer)
+            ->addColumn('action', function($customer){
+                return //'<a href="" class="btn btn-success btn-xs">Active</a> '.
+                        //'<a href="" class="btn btn-warning btn-xs">Suspend</a> '.
+                        '<a onclick="showForm('. $customer->id .')" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Show</a> ' .
+                       '<a onclick="editForm('. $customer->id .')" class="btn btn-primary btn-xs">
+                            <i class="glyphicon glyphicon-edit"></i> Edit
+                        </a> ' .
+                       '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs">
+                            <i class="glyphicon glyphicon-trash"></i> Delete
+                        </a>';
+            })
+            ->rawColumns(['action'])->make(true);
     }
 
     /**
@@ -42,6 +62,20 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
+        $input = $request->all();
+        // $input['photo'] = null;
+
+        // if ($request->hasFile('photo')){
+        //     $input['photo'] = '/upload/photo/'.str_slug($input['name'], '-').'.'.$request->photo->getClientOriginalExtension();
+        //     $request->photo->move(public_path('/upload/photo/'), $input['photo']);
+        // }
+
+        User::create($input);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Created'
+        ]);
     }
 
     /**
@@ -53,6 +87,8 @@ class UsersController extends Controller
     public function show($id)
     {
         //
+        $contact = User::findOrFail($id);
+        return $contact;
     }
 
     /**
@@ -64,6 +100,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         //
+        $contact = User::findOrFail($id);
+        return $contact;
     }
 
     /**
@@ -73,15 +111,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $id = $request->input('id');
+        $input = $request->all();
+        $contact = User::findOrFail($id);
 
-        $cust = User::find($id);
-        $cust->update($request->all());
-        $cust->save();
 
-        return response()->json($cust);
+        $contact->update($input);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Updated'
+        ]);
     }
 
     /**
@@ -90,14 +131,27 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $id = $request->input('id');
+        // $id = $request->input('id');
 
-        $cust = User::find($id);
-        $cust->delete();
+        // $cust = User::find($id);
+        // $cust->delete();
 
-        return response()->json($cust);
+        // return response()->json($cust);
+
+        $contact = User::findOrFail($id);
+
+        // if (!$contact->photo == NULL){
+        //     unlink(public_path($contact->photo));
+        // }
+
+        User::destroy($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Deleted'
+        ]);
         
     }
 }

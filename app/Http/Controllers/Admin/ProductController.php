@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
@@ -20,9 +21,33 @@ class ProductController extends Controller
     public function index()
     {
         //
+        // $categoryMenu = Category::orderBy('category_name', 'asc')->get();
+        // $products = Product::orderBy('id', 'desc')->paginate(5);
+        // return view('admin.product', compact('products', 'categoryMenu'));
         $categoryMenu = Category::orderBy('category_name', 'asc')->get();
-        $products = Product::orderBy('id', 'desc')->paginate(5);
-        return view('admin.product', compact('products', 'categoryMenu'));
+        return view('admin.product', compact('categoryMenu'));
+    }
+
+    public function loadData()
+    {
+        $contact = Product::all();
+ 
+        return Datatables::of($contact)
+            ->addColumn('show_photo', function($contact){
+                if ($contact->thumbs == NULL){
+                    return 'No Image';
+                }
+                return $contact->thumbs;
+            })
+            ->addColumn('category_name', function($contact){
+                return $contact->categories->category_name;
+            })
+            ->addColumn('action', function($contact){
+                return '<a onclick="showForm('. $contact->id .')" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Show</a> ' .
+                       '<a onclick="editForm('. $contact->id .')" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Edit</a> ' .
+                       '<a onclick="deleteData('. $contact->id .')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            })
+            ->rawColumns(['show_photo', 'action'])->make(true);
     }
 
     /**
@@ -87,7 +112,11 @@ class ProductController extends Controller
             }
         }
         // Session::flash("status", 1);
-        return redirect()->route('admin-products.index');
+        // return redirect()->route('admin-products.index');
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Created'
+        ]);
     }
 
     /**
@@ -98,7 +127,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $contact = Product::findOrFail($id);
+        $contact['img'] = $contact->thumbs;
+        $contact['kategori'] = $contact->categories->category_name; 
+        $contact['hargaOri'] = number_format($contact->original_price);
+        $contact['hargaProduct'] = number_format($contact->product_price);
+        
+        return $contact;
     }
 
     /**
@@ -110,10 +145,12 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
-        $categoryMenu = Category::orderBy('category_name', 'asc')->get();
-        $categoriess = Category::pluck("category_name", "id")->all();
-        $products = Product::find($id);
-        return view("admin.products-edit", compact('categoriess', 'products', 'categoryMenu'));
+        // $categoryMenu = Category::orderBy('category_name', 'asc')->get();
+        // $categoriess = Category::pluck("category_name", "id")->all();
+        // $products = Product::find($id);
+        // return view("admin.products-edit", compact('categoriess', 'products', 'categoryMenu'));
+        $contact = Product::findOrFail($id);
+        return $contact;
     }
 
     /**
@@ -160,7 +197,11 @@ class ProductController extends Controller
 
         // Session::flash("status", 1);
         // // return redirect()->route('admin-products.index');
-        return response()->json($products);
+        // return response()->json($products);
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Updated'
+        ]);
     }
 
     /**
@@ -169,9 +210,9 @@ class ProductController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $id = $request->input('id');
+        // $id = $request->input('id');
         //
         $img = Images::where('imageable_id', $id)->get();
         foreach ($img as $im) {
@@ -186,8 +227,11 @@ class ProductController extends Controller
         // Session::flash("status", 1);
 
         // return redirect()->route('admin-products.index');
-        return response()->json($products);
-
+        // return response()->json($products);
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Deleted'
+        ]);
 
     }
 }

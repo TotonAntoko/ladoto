@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
@@ -20,9 +21,28 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categoryMenu = Category::orderBy('category_name', 'asc')->get();
-        $categories = Category::orderBy('id', 'desc')->paginate(5);
-        return view('admin.category', compact('categories', 'categoryMenu'));
+        // $categoryMenu = Category::orderBy('category_name', 'asc')->get();
+        // $categories = Category::orderBy('id', 'desc')->paginate(5);
+        // return view('admin.category', compact('categories', 'categoryMenu'));
+        return view('admin.category');
+    }
+
+    public function loadData(){
+        $customer = Category::all();
+ 
+        return Datatables::of($customer)
+            ->addColumn('action', function($customer){
+                return //'<a href="" class="btn btn-success btn-xs">Active</a> '.
+                        //'<a href="" class="btn btn-warning btn-xs">Suspend</a> '.
+                        //'<a onclick="showForm('. $customer->id .')" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Show</a> ' .
+                       '<a onclick="editForm('. $customer->id .')" class="btn btn-primary btn-xs">
+                            <i class="glyphicon glyphicon-edit"></i> Edit
+                        </a> ' .
+                       '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs">
+                            <i class="glyphicon glyphicon-trash"></i> Delete
+                        </a>';
+            })
+            ->rawColumns(['action'])->make(true);
     }
 
     /**
@@ -47,18 +67,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $this->validate($request, [
-        //     "category_name" => "required|max:255"
-        // ]);
 
-        // $data = ['category_name' => $request->category_name];
-        // Category::create($data);
-        // Session::flash("status", 1);
+        $input = $request->all();
 
-        // return redirect()->route('admin-category.index');
-        $customer = Category::create($request->all());
-        return redirect('/admin-category')->with('Sukses', 'Data Berhasil Dimasukkan');
+        Category::create($input);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Created'
+        ]);
     }
 
     /**
@@ -81,10 +98,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-        // $categoryMenu = Category::orderBy('category_name', 'asc')->get();
-        // $category = Category::find($id);
-        // $categories = Category::pluck('category_name', 'id')->all();
-        // return view("admin.category-edit", compact('category', 'categories', 'categoryMenu'));
+        $contact = Category::findOrFail($id);
+        return $contact;
     }
 
     /**
@@ -94,34 +109,19 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
-        //
-        // $this->validate($request,
-        //     [
-        //         "category_name" => "required|max:255"
-        //     ]);
-
-        // $category = Category::find($id);
-
-        // $data = ['category_name' => $request->category_name];
-        // $category->update($data);
-
-        // Session::flash("status", 1);
-        // return redirect()->route('admin-category.index');
-        $id = $request->input('id');
-
-        $category = Category::find($id);
-        // $data1 = ['slug' => $request->category_name];
-
-
-        $data = ['category_name' => $request->category_name,
+    public function update(Request $request, $id)
+    {   
+        $contact = Category::findOrFail($id);
+        $input = ['category_name' => $request->category_name,
                 'slug' => ""];
-        $category->update($data);
-        $category->save();
 
-        // return redirect('/admin-category')->with('Sukses', 'Data Berhasil Dimasukkan');
-        return response()->json($category);
+        $contact->update($input);
+        $contact->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Updated'
+        ]);
     }
 
     /**
@@ -130,10 +130,10 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
         //
-        $id = $request->input('id');
+        // $id = $request->input('id');
 
         $products = Product::where('category_id', $id)->get();
 
@@ -151,6 +151,12 @@ class CategoryController extends Controller
 
         // Session::flash("status", 1);
         // return redirect()->route('admin-category.index');
-        return response()->json($category);
+        // return response()->json($category);
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact Deleted'
+        ]);
+
+        
     }
 }
