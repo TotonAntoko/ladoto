@@ -109,6 +109,9 @@ Route::group(['middleware' => ['adminlogin']], function () {
         Route::resource("/admin-users","UsersController");
         Route::get("admin/user/load","UsersController@loadData")->name('admin.user');
 
+        Route::resource("/admin-brand","BrandController");
+        Route::get("admin/brand/load","BrandController@loadData")->name('admin.brand');
+
         Route::resource("/admin-category","CategoryController");
         Route::get("admin/category/load","CategoryController@loadData")->name('admin.category');
 

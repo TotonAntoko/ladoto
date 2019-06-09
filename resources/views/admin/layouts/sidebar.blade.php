@@ -41,6 +41,11 @@
             </a>
         </li>
         <li>
+            <a href="/admin-brand">
+                <i class="fa fa-user"></i> <span>Brand</span>
+            </a>
+        </li>
+        <li>
             <a href="/admin-category">
                 <i class="fa fa-user"></i> <span>Category</span>
             </a>

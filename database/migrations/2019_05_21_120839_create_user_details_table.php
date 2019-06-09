@@ -23,7 +23,10 @@ class CreateUserDetailsTable extends Migration
             $table->string('country')->nullable();
             $table->string('zipcode')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

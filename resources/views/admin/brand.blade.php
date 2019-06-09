@@ -35,12 +35,12 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Image</th>
-                                    <th>Category</th>
-                                    <th>Product Name</th>
+                                    <th>Nama Brand</th>
+                                    <th>Email</th>
                                     {{-- <th>Original Price</th> --}}
-                                    <th>Product Price</th>
+                                    {{-- <th>Product Price</th> --}}
                                     {{-- <th>Product Details</th> --}}
-                                    <th>Stok</th>
+                                    {{-- <th>Stok</th> --}}
                                     {{-- <th>Created At</th> --}}
                                     <th>Action</th>
                                 </tr>
@@ -62,7 +62,7 @@
 <!-- /.content-wrapper -->
 <!-- ./wrapper -->
 
-<!-- Modal Add-->
+<!-- Modal Add/Edit-->
 <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -81,54 +81,19 @@
                         <label for="img">Product Image</label>
                         <input type="file" name="img[]" class="form-control-file" id="img" multiple>
                     </div>
-                    <div id="brand_id-edit" class="form-group">
-                        <label for="">Kategori</label>
-                        @if(count($brand)>0)
-                        <select name="brand_id" class="form-control" id="brand_id"
-                            aria-placeholder="Pilih Kategori">
-                            <option value="">--- Pilih Brand ---</option>
-                            @foreach ($brand as $list)
-                            <option value="{{$list->id}}">{{$list->name}}</option>
-                            @endforeach
-                        </select>
-                        @else
-                        <p>Tidak ada pilihan Kategori</p>
-                        @endif
-                    </div>
-                    <div id="category_id-edit" class="form-group">
-                        <label for="">Kategori</label>
-                        @if(count($categoryMenu)>0)
-                        <select name="category_id" class="form-control" id="category_id"
-                            aria-placeholder="Pilih Kategori">
-                            <option value="">--- Pilih Kategori ---</option>
-                            @foreach ($categoryMenu as $list)
-                            <option value="{{$list->id}}">{{$list->category_name}}</option>
-                            @endforeach
-                        </select>
-                        @else
-                        <p>Tidak ada pilihan Kategori</p>
-                        @endif
-                    </div>
+                    
                     <div class="form-group">
-                        <label for="nama">Product Name</label>
-                        <input type="text" name="product_name" class="form-control" id="product_name" aria-describedby="emailHelp"
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
                             placeholder="Nama" autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="alamat">Original Price</label>
-                        <input type="text" name="original_price" class="form-control" id="original_price" placeholder="Alamat">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Alamat">
                     </div>
                     <div class="form-group">
-                        <label for="kota">Product Price</label>
-                        <input type="text" name="product_price" class="form-control" id="product_price" placeholder="Kota">
-                    </div>
-                    <div class="form-group">
-                        <label for="kota">Stok</label>
-                        <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok">
-                    </div>
-                    <div class="form-group">
-                        <label for="negara">Product Details</label>
-                        <input type="text" name="product_detail" class="form-control" id="product_detail" placeholder="Negara">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Kota">
                     </div>
             </div>
             <div class="modal-footer">
@@ -155,10 +120,6 @@
                 <div class="form-group">
                     <label for="image-show">Image</label>
                     <div id="image-show" class="shadow-lg p-3 mb-5 bg-white rounded"></div>
-                </div>
-                <div class="form-group">
-                    <label for="brand-show">Brand</label>
-                    <div id="brand-show" class="shadow-lg p-3 mb-5 bg-white rounded">Larger shadow</div>
                 </div>
                 <div class="form-group">
                     <label for="kategori-show">Kategori</label>
@@ -218,16 +179,17 @@
     var table = $('#product-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('admin.product') }}",
+        ajax: "{{ route('admin.brand') }}",
         columns: [
         {data: 'id', name: 'id'},
         {data: 'show_photo', name: 'show_photo'},
-        {data: 'category_name', name: 'category_name'},
-        {data: 'product_name', name: 'product_name'},
+        {data: 'name', name: 'name'},
+        {data: 'email', name: 'email'},
+        // {data: 'product_name', name: 'product_name'},
         // {data: 'original_price', name: 'original_price'},
-        {data: 'hargaProduk', name: 'hargaProduk'},
+        // {data: 'hargaProduk', name: 'hargaProduk'},
         // {data: 'product_detail', name: 'product_detail'},
-        {data: 'stok', name: 'stok'},
+        // {data: 'stok', name: 'stok'},
         // {data: 'created_at', name: 'created_at'},
         {data: 'action', name: 'action', orderable: false, searchable: false}
         ]
@@ -255,7 +217,6 @@
             
 
             $('#image-show').append(data.img);
-            $('#brand-show').text(data.namaBrand);
             $('#kategori-show').text(data.kategori);
             $('#nama-show').text(data.product_name);
             $('#hargaOri-show').text(data.hargaOri);
@@ -275,30 +236,17 @@
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-          url: "{{ url('admin-products') }}" + '/' + id + "/edit",
+          url: "{{ url('admin-brand') }}" + '/' + id + "/edit",
           type: "GET",
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
             $('.modal-title').text('Edit Product');
 
-            // $('#id-edit').val($(this).data('id'));
-            // $('#stok-edit').val($(this).data('stok'));
-            // $('#category_id-edit select').val($(this).data('category'));
-            // $('#product_name-edit').val($(this).data('product'));
-            // $('#original_price-edit').val($(this).data('oriprice'));
-            // $('#product_price-edit').val($(this).data('prodprice'));
-            // $('#product_detail-edit').val($(this).data('detail'));
-
             $('#id').val(data.id);
-            $('#category_id-edit select').val(data.category_id);
-            $('#brand_id-edit select').val(data.brand_id);
-            $('#product_name').val(data.product_name);
-            $('#original_price').val(data.original_price);
-            $('#product_price').val(data.product_price);
-            $('#product_detail').val(data.product_detail);
-            $('#stok').val(data.stok);
-            
+            $('#name').val(data.name);
+            $('#email').val(data.email);
+            $('#password').val('password');
             
           },
           error : function() {
@@ -319,7 +267,7 @@
             confirmButtonText: 'Yes, delete it!'
         }).then(function () {
             $.ajax({
-                url : "{{ url('admin-products') }}" + '/' + id,
+                url : "{{ url('admin-brand') }}" + '/' + id,
                 type : "POST",
                 data : {'_method' : 'DELETE', '_token' : csrf_token},
                 success : function(data) {
@@ -347,8 +295,8 @@
         $('#modal-form form').validator().on('submit', function (e) {
             if (!e.isDefaultPrevented()){
                 var id = $('#id').val();
-                if (save_method == 'add') url = "{{ url('admin-products') }}";
-                else url = "{{ url('admin-products') . '/' }}" + id;
+                if (save_method == 'add') url = "{{ url('admin-brand') }}";
+                else url = "{{ url('admin-brand') . '/' }}" + id;
 
                 $.ajax({
                     url : url,

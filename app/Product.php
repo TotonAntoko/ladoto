@@ -4,6 +4,7 @@ namespace App;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use App\Brands;
 
 class Product extends Model
 {
@@ -32,7 +33,18 @@ class Product extends Model
         return $this->belongsTo('App\Category','category_id','id');
     }
 
+    // public function brand()
+    // {
+    //     return $this->belongsTo('App\Brands','brand_id','id');
+    // }
+    public function scopeLatestFirst($query){
+        return $query->orderBy('id', 'DESC');
+    }
 
+    public function brand()
+    {
+        return $this->belongsTo('App\Brands','brand_id','id');
+    }
 
     public function images()
     {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Category;
 use App\Product;
+use App\Brands;
 
 class HomeController extends Controller
 {
@@ -28,7 +29,8 @@ class HomeController extends Controller
     {
         $categoryMenu = Category::orderBy('category_name','asc')->get();
         $products = Product::orderBy('id','desc')->get();
-        return view('index', compact( 'products','categoryMenu'));
+        $brand = Brands::orderBy('id', 'desc')->get();
+        return view('index', compact( 'products','categoryMenu', 'brand'));
     }
 
     public function category($slug){
