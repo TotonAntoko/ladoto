@@ -52,7 +52,7 @@
 			@endif   
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="{{ url('admin') }}" method="post">
+            <form action="{{ url('admin/postlogin') }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group has-feedback">
                     <input id="username" type="text" class="form-control" name="username" placeholder="Username"

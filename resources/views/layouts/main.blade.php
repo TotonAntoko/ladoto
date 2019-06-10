@@ -53,13 +53,47 @@
 
                                 <!-- Currency / Language / My Account -->
                                 @if(Auth::guest())
-                                    <li class="language">
-                                        <a href="{{ route('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i>
-                                            Sign In</a>
+                                    <li class="account">
+                                        <a href="{{ route('login') }}">
+                                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                            Login
+                                        </a>
+                                        {{-- <ul class="account_selection">
+                                            <li class="language">
+                                            <li class="">
+                                                <a href="{{ route('brand.login') }}">
+                                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    Sign In
+                                                </a>
+                                            </li>
+                                            <li class="language">
+                                            <li class="">
+                                                <a href="{{ route('brand.register') }}">
+                                                    <i class="fa fa-user-plus"aria-hidden="true"></i> Register
+                                                </a>
+                                            </li>
+                                        </ul> --}}
                                     </li>
-                                    <li class="language">
-                                        <a href="{{ route('register') }}"><i class="fa fa-user-plus"
-                                                                             aria-hidden="true"></i> Register</a>
+                                    <li class="account">
+                                        <a href="{{ route('register') }}">
+                                            <i class="fa fa-user-plus"aria-hidden="true"></i>
+                                            Register
+                                        </a>
+                                        {{-- <ul class="account_selection">
+                                            <li class="language">
+                                            <li class="">
+                                                <a href="{{ route('login') }}">
+                                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    Sign In
+                                                </a>
+                                            </li>
+                                            <li class="language">
+                                            <li class="">
+                                                <a href="{{ route('register') }}">
+                                                    <i class="fa fa-user-plus"aria-hidden="true"></i> Register
+                                                </a>
+                                            </li>
+                                        </ul> --}}
                                     </li>
                                 @else
                                     <li class="account">
@@ -71,8 +105,10 @@
                                         <ul class="account_selection">
                                             @if(Auth::user()->isItAuthorized("admin"))
                                                 <li><b>ADMIN</b></li>
-                                                <li><a href="{{ url('/admin-users') }}"><i
-                                                                class="fa fa-btn fa-users"></i>Users</a>
+                                                <li>
+                                                    <a href="{{ url('/admin-users') }}">
+                                                        <i class="fa fa-btn fa-users"></i>Users
+                                                    </a>
                                                 </li>
                                                 <li><a href="{{ url('/admin-category') }}"><i
                                                                 class="fa fa-btn fa-list-ul"></i>Category</a></li>

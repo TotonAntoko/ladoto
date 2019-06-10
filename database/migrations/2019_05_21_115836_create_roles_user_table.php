@@ -16,7 +16,18 @@ class CreateRolesUserTable extends Migration
         Schema::create('roles_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('role_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('brand_id')->unsigned()->nullable();
+            
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('brand_id')
+                ->references('id')
+                ->on('brands')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

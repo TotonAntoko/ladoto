@@ -18,13 +18,32 @@
 // });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/contact', 'HomeController@contact')->name('contact');
-Route::get('/category/{slug}', 'HomeController@category')->name('category');
-Route::get('/product/{slug}', 'HomeController@product')->name('product');
+Route::group(['middleware' => ['frontEnd']], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/category/{slug}', 'HomeController@category')->name('category');
+    Route::get('/product/{slug}', 'HomeController@product')->name('product');
 
-Route::get('logout','Auth\LoginController@logout');
+    Route::get('logout','Auth\LoginController@logout');
+
+    Route::group(['prefix' => 'basket'], function () {
+        Route::get('/', 'BasketController@index')->name('basket');
+    
+        Route::post('/create', 'BasketController@create')->name('basket.create');
+        Route::delete('/destroy', 'BasketController@destroy')->name('basket.destroy');
+        Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
+    });
+
+    Route::get('/payment', 'PaymentController@index')->name('payment');
+    Route::post('/successful', 'PaymentController@pay')->name('pay');
+
+    Route::get('/orders', 'OrderController@index')->name('orders');
+    Route::get('/orders/{id}', 'OrderController@detail')->name('order');
+
+    Route::resource('profile', 'UserDetailController')->middleware('auth:users');
+});
+Route::get('/contact', 'HomeController@contact')->name('contact');
+
 // Route::get('/login', function () {
 //     return view('frontEnd.login');
 // });
@@ -47,21 +66,6 @@ Route::get('logout','Auth\LoginController@logout');
 //     return view('frontEnd.contact');
 // });
 
-Route::group(['prefix' => 'basket'], function () {
-    Route::get('/', 'BasketController@index')->name('basket');
-
-    Route::post('/create', 'BasketController@create')->name('basket.create');
-    Route::delete('/destroy', 'BasketController@destroy')->name('basket.destroy');
-    Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
-});
-
-Route::get('/payment', 'PaymentController@index')->name('payment');
-Route::post('/successful', 'PaymentController@pay')->name('pay');
-
-Route::get('/orders', 'OrderController@index')->name('orders');
-Route::get('/orders/{id}', 'OrderController@detail')->name('order');
-
-Route::resource('profile', 'UserDetailController')->middleware('auth');
 
 /**
  * Admin routes
@@ -101,9 +105,10 @@ Route::resource('profile', 'UserDetailController')->middleware('auth');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::match(['get', 'post'], '/admin','AdminController@login');
+Route::match(['get', 'post'], '/admin','AdminController@getLogin')->middleware('guest');
+Route::match(['get', 'post'], '/admin/postlogin','AdminController@login');
 
-Route::group(['middleware' => ['adminlogin']], function () {
+Route::group(['middleware' => ['adminlogin', 'auth:admin']], function () {
     Route::get('/admin/dashboard','AdminController@dashboard');
     Route::group(["namespace" => "Admin"], function (){
         Route::resource("/admin-users","UsersController");
@@ -118,4 +123,5 @@ Route::group(['middleware' => ['adminlogin']], function () {
         Route::resource("/admin-products","ProductController");
         Route::get("admin/product/load","ProductController@loadData")->name('admin.product');
     });
+    Route::get('/admin/logout','AdminController@logout');
 });

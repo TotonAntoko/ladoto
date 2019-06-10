@@ -2,14 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use App\Product;
 
-class Brands extends Model implements \Illuminate\Contracts\Auth\Authenticatable
+class Brands extends Authenticatable
 {
-    use Authenticatable;
+    use Notifiable;
         
     protected $fillable = [
         'name', 'email', 'password', 'api_token',
@@ -46,5 +46,22 @@ class Brands extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     public function ownsProduct(Product $product)
     {
         return auth()->id() == $product->brand->id;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany("App\Role","roles_user", 'brand_id', 'role_id')->withTimeStamps();
+    }
+
+    public function isItAuthorized($authorization)
+    {
+        foreach ($this->roles()->get() as $role) {
+                if ($role->name == $authorization)
+            {
+                return true;
+                break;
+            }
+        }
+        return false;
     }
 }

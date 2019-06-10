@@ -9,20 +9,37 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    public function getLogin(){
+        return view('admin.login');
+    }
     public function login(Request $request){
-    	if($request->isMethod('post')){
-    		$data = $request->input();
-            $adminCount = Admin::where(['username' => $data['username'],'password'=>md5($data['password']),'status'=>1])->count(); 
-            if($adminCount > 0){
-                //echo "Success"; die;
-                Session::put('adminSession', $data['username']);
-                return redirect('/admin/dashboard');
-        	}else{
-                //echo "failed"; die;
-                return redirect('/admin')->with('flash_message_error','Invalid Username or Password');
-        	}
-    	}
-    	return view('admin.login');
+    	// if($request->isMethod('post')){
+    	// 	$data = $request->input();
+        //     $adminCount = Admin::where(['username' => $data['username'],'password'=>md5($data['password']),'status'=>1])->count(); 
+        //     if($adminCount > 0){
+        //         //echo "Success"; die;
+        //         Session::put('adminSession', $data['username']);
+        //         return redirect('/admin/dashboard');
+        // 	}else{
+        //         //echo "failed"; die;
+        //         return redirect('/admin')->with('flash_message_error','Invalid Username or Password');
+        // 	}
+    	// }
+        // return view('admin.login');
+
+
+        // dd($request->all());
+        
+        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
+            // if successful, then redirect to their intended location
+            return redirect()->intended('/admin/dashboard');
+        } else{
+            return redirect('/admin')->with('flash_message_error','Invalid Username or Password');
+        }
+        
+        // else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        //     return redirect()->intended('/user');
+        // }
     }
 
     public function dashboard(){
@@ -78,8 +95,13 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        Session::flush();
-        return redirect('/admin')->with('flash_message_success', 'Logged out successfully.');
+        // Session::flush();
+        // return redirect('/admin')->with('flash_message_success', 'Logged out successfully.');
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        }
+        
+        return redirect('/admin');
        
     }
 }

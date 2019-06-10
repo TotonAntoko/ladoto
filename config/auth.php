@@ -46,6 +46,36 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'brand' => [
+            'driver' => 'session',
+            'provider' => 'brand',
+        ],
+
+        // 'brand-api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'brand',
+        // ],
+
+        'users' => [
+          'driver' => 'session',
+          'provider' => 'users',
+        ],
+
+        // 'user-api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'user',
+        // ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+
+        // 'admin-api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'admin',
+        // ],
     ],
 
     /*
@@ -70,9 +100,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'users' => [
+        'brand' => [
             'driver' => 'eloquent',
             'model' => App\Brands::class,
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
         ],
 
         // 'users' => [

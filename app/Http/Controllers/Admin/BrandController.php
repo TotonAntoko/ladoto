@@ -190,6 +190,14 @@ class BrandController extends Controller
 
     }
 
+    public function getLogin(){
+        return view('loginBrand');
+    }
+
+    public function getRegister(){
+        return view('registerBrand');
+    }
+
 
 
 
@@ -211,6 +219,7 @@ class BrandController extends Controller
             'password'  => bcrypt($request->password),
             'api_token' => bcrypt($request->email),
         ]);
+        $brands->roles()->attach(2);
 
         $imgs = array();
 
@@ -256,14 +265,14 @@ class BrandController extends Controller
     public function login(Request $request, Brands $brand)
     {
         
-        if(!Auth::attempt(['email' => $request->email, 'password' => $request->password]))
+        if(!Auth::guard('brand')->attempt(['email' => $request->email, 'password' => $request->password]))
         {
             return response()->json(['error' => 'Your Credentiall Is Wrong'], 401);
         }
 
         // return response()->json($request->password);
 
-        $brand = $brand->find(Auth::user()->id);
+        $brand = $brand->find(Auth::guard('brand')->user()->id);
 
         return fractal()
             ->item($brand)
