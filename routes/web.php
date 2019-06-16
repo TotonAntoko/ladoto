@@ -55,6 +55,14 @@ Route::group(['prefix' => 'basket'], function () {
     Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
 });
 
+Route::group(['prefix' => 'wishlist'], function () {
+    Route::get('/', 'WishlistController@index')->name('wishlist');
+
+    Route::post('/create', 'WishlistController@create')->name('wishlist.create');
+    Route::delete('/destroy', 'WishlistController@destroy')->name('wishlist.destroy');
+    Route::patch('/update/{rowid}', 'WishlistController@update')->name('wishlist.update');
+});
+
 Route::get('/payment', 'PaymentController@index')->name('payment');
 Route::post('/successful', 'PaymentController@pay')->name('pay');
 
