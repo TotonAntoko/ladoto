@@ -16,4 +16,8 @@ class Order extends Model
         return $this->belongsTo('App\Basket', 'basket_id');
     }
 
+    public function wishlists()
+    {
+        return $this->belongsTo('App\Wishlists', 'wishlist_id');
+    }
 }

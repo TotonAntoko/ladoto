@@ -66,6 +66,32 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 //     return view('frontEnd.contact');
 // });
 
+<<<<<<< HEAD
+=======
+Route::group(['prefix' => 'basket'], function () {
+    Route::get('/', 'BasketController@index')->name('basket');
+
+    Route::post('/create', 'BasketController@create')->name('basket.create');
+    Route::delete('/destroy', 'BasketController@destroy')->name('basket.destroy');
+    Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
+});
+
+Route::group(['prefix' => 'wishlist'], function () {
+    Route::get('/', 'WishlistController@index')->name('wishlist');
+
+    Route::post('/create', 'WishlistController@create')->name('wishlist.create');
+    Route::delete('/destroy', 'WishlistController@destroy')->name('wishlist.destroy');
+    Route::patch('/update/{rowid}', 'WishlistController@update')->name('wishlist.update');
+});
+
+Route::get('/payment', 'PaymentController@index')->name('payment');
+Route::post('/successful', 'PaymentController@pay')->name('pay');
+
+Route::get('/orders', 'OrderController@index')->name('orders');
+Route::get('/orders/{id}', 'OrderController@detail')->name('order');
+
+Route::resource('profile', 'UserDetailController')->middleware('auth');
+>>>>>>> d90fa8f29c9d8b773915765d9b815d79cbc68c7b
 
 /**
  * Admin routes
