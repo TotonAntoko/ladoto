@@ -16,6 +16,7 @@ class CreateBasketsTable extends Migration
         Schema::create('baskets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
+            $table->bigInteger('ongkir');
             $table->timestamps();
 
 

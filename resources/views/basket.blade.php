@@ -16,6 +16,7 @@
                     </div><!-- Section Header /- -->
                     <div class="order-summary-content">
                         @if(count(Cart::content())>0)
+                        {{-- @if(count($chartHistory) > 0) --}}
                             <table class="shop_cart">
                                 <thead>
                                 <tr>
@@ -27,6 +28,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach(Cart::content() as $productCartItem)
+                                {{-- @foreach($chartHistory as $productCartItem) --}}
                                     <tr class="cart_item">
 
 
@@ -44,10 +46,18 @@
                                         </td>
 
                                         <td data-title="Total" class="product-subtotal">
-                                            <span>{{$productCartItem->price}} ₺</span>
+                                            <span>
+                                                Rp. {{number_format($productCartItem->price, 2)}}
+                                            </span>
                                         </td>
                                         <td data-title="Total" class="product-remove">
-                                            <span>{{($productCartItem->price) * ($productCartItem->qty) }} ₺</span>
+                                            <span>
+                                                Rp. {{
+                                                        number_format(($productCartItem->price) 
+                                                        * 
+                                                        ($productCartItem->qty), 2 )
+                                                    }}
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -69,10 +79,11 @@
                             <!-- Proceed To Checkout -->
                             <div class="col-md-12 col-sm-12 text-right">
                                 <div class="wc-proceed-to-checkout">
-                                    <p>SUBTOTAL <span>{{ Cart::subtotal() }} + VAT</span></p>
-                                    <p>TOTAL <span>{{ Cart::total() }} ₺ </span></p>
+                                    <p>SUBTOTAL <span>Rp. {{ Cart::subtotal() }}</span></p>
+                                    {{-- <p>ONGKIR <span>Rp. </span></p> --}}
+                                    <p>TOTAL <span>Rp. {{ Cart::total() }}  </span></p>
 
-                                    <a href="{{route('payment')}}" class="red_button" title="CHECKOUT">CHECKOUT</a>
+                                    <a href="{{route('ongkir')}}" class="red_button" title="CHECKOUT">Cek ongkir</a>
                                 </div>
                             </div><!-- Proceed To Checkout /- -->
 

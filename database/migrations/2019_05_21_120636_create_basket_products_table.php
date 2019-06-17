@@ -17,7 +17,7 @@ class CreateBasketProductsTable extends Migration
             $table->increments('id');
             $table->integer('basket_id')->unsigned();
             $table->integer('product_id')->unsigned();
-            $table->integer('quantity');
+            $table->bigInteger('quantity');
             $table->decimal('price',18,9);
             $table->string('status',30);
             $table->timestamps();

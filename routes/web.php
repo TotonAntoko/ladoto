@@ -34,13 +34,35 @@ Route::group(['middleware' => ['frontEnd']], function () {
         Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
     });
 
+    Route::group(['prefix' => 'wishlist'], function () {
+        Route::get('/', 'WishlistController@index')->name('wishlist');
+    
+        Route::post('/create', 'WishlistController@create')->name('wishlist.create');
+        Route::delete('/destroy', 'WishlistController@destroy')->name('wishlist.destroy');
+        Route::patch('/update/{rowid}', 'WishlistController@update')->name('wishlist.update');
+    });
+
+    Route::group(['prefix' => 'ongkir'], function () {
+        Route::get('/', 'OngkirController@index')->name('ongkir');
+        Route::get("/loadProvinsi","OngkirController@loadProvinsi")->name('ongkir.loadProvinsi');
+        Route::get("/loadKota","OngkirController@loadKota")->name('ongkir.loadKota');
+        Route::get("/loadCityByIdProv/{id}","OngkirController@loadCityByIdProv")->name('ongkir.loadCityByIdProv');
+
+        Route::get("/cekOngkir/{asal}/{kab}/{kurir}/{berat}","OngkirController@cekOngkir")->name('ongkir.cekOngkir');
+        Route::get("/addOngkirToDb/{ongkir}","OngkirController@addOngkirToDb")->name('ongkir.addOngkirToDb');
+    
+        Route::post('/create', 'OngkirController@create')->name('ongkir.create');
+        Route::delete('/destroy', 'OngkirController@destroy')->name('ongkir.destroy');
+        Route::patch('/update/{rowid}', 'OngkirController@update')->name('ongkir.update');
+    });
+
     Route::get('/payment', 'PaymentController@index')->name('payment');
     Route::post('/successful', 'PaymentController@pay')->name('pay');
 
     Route::get('/orders', 'OrderController@index')->name('orders');
     Route::get('/orders/{id}', 'OrderController@detail')->name('order');
 
-    Route::resource('profile', 'UserDetailController')->middleware('auth:users');
+    Route::resource('profile', 'UserDetailController');
 });
 Route::get('/contact', 'HomeController@contact')->name('contact');
 
@@ -65,33 +87,6 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 // Route::get('/contact', function () {
 //     return view('frontEnd.contact');
 // });
-
-<<<<<<< HEAD
-=======
-Route::group(['prefix' => 'basket'], function () {
-    Route::get('/', 'BasketController@index')->name('basket');
-
-    Route::post('/create', 'BasketController@create')->name('basket.create');
-    Route::delete('/destroy', 'BasketController@destroy')->name('basket.destroy');
-    Route::patch('/update/{rowid}', 'BasketController@update')->name('basket.update');
-});
-
-Route::group(['prefix' => 'wishlist'], function () {
-    Route::get('/', 'WishlistController@index')->name('wishlist');
-
-    Route::post('/create', 'WishlistController@create')->name('wishlist.create');
-    Route::delete('/destroy', 'WishlistController@destroy')->name('wishlist.destroy');
-    Route::patch('/update/{rowid}', 'WishlistController@update')->name('wishlist.update');
-});
-
-Route::get('/payment', 'PaymentController@index')->name('payment');
-Route::post('/successful', 'PaymentController@pay')->name('pay');
-
-Route::get('/orders', 'OrderController@index')->name('orders');
-Route::get('/orders/{id}', 'OrderController@detail')->name('order');
-
-Route::resource('profile', 'UserDetailController')->middleware('auth');
->>>>>>> d90fa8f29c9d8b773915765d9b815d79cbc68c7b
 
 /**
  * Admin routes

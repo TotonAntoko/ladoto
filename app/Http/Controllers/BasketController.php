@@ -6,6 +6,7 @@ use App\Basket;
 use App\BasketProduct;
 use App\Category;
 use App\Product;
+use App\view\ChartHistory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class BasketController extends Controller
         //
         $categoryMenu = Category::orderBy('category_name','asc')->get();
         $categories = Category::orderBy('category_name','asc')->get();
+        // $chartHistory = ChartHistory::where('user_id', Auth::user()->id)->get();
         return view('basket', compact('categories','categoryMenu'));
     }
 
@@ -46,7 +48,8 @@ class BasketController extends Controller
             $active_basket_id = session('active_basket_id');
             if (!isset($active_basket_id)) {
                 $active_basket = Basket::create([
-                    'user_id' => Auth::id()
+                    'user_id' => Auth::id(),
+                    'ongkir' => 0
                 ]);
                 $active_basket_id = $active_basket->id;
                 session()->put('active_basket_id', $active_basket_id);

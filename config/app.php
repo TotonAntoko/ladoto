@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+        rizalafani\rajaongkirlaravel\RajaOngkirServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'RajaOngkir' => rizalafani\rajaongkirlaravel\RajaOngkirFacade::class,
 
     ],
 
