@@ -124,6 +124,8 @@
                                                 <li><b>USER</b></li>
                                                 <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a>
                                                 </li>
+                                                <li class="wishlist"><a href="{{route('wishlist')}}"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a>
+                                                </li>
                                                 <li><a href="{{ url('/orders') }}"><i class="fa fa-btn fa-list-alt"></i>Orders</a>
                                                 </li>
                                             @endif
@@ -168,6 +170,11 @@
                                     <a href="{{route('basket')}}">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         <span id="checkout_items" class="checkout_items">{{ Cart::count() }}</span>
+                                    </a>
+                                </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <li class="wishlist">
+                                    <a href="{{route('wishlist')}}">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
                                     </a>
                                 </li>
                             </ul>
