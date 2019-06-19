@@ -64,9 +64,9 @@
                                         </h6>
 
                                         <div class="product_price">
-                                            {{ number_format($product->product_price) }} ₺
+                                            Rp. {{ number_format($product->product_price) }}
                                             <span>
-                                                {{ number_format($product->original_price ) }}₺
+                                                Rp. {{ number_format($product->original_price ) }}
                                             </span>
                                         </div>
 

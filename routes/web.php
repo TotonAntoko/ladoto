@@ -45,7 +45,7 @@ Route::group(['middleware' => ['frontEnd']], function () {
     Route::group(['prefix' => 'ongkir'], function () {
         Route::get('/', 'OngkirController@index')->name('ongkir');
         Route::get("/loadProvinsi","OngkirController@loadProvinsi")->name('ongkir.loadProvinsi');
-        Route::get("/loadKota","OngkirController@loadKota")->name('ongkir.loadKota');
+        // Route::get("/loadKota","OngkirController@loadKota")->name('ongkir.loadKota');
         Route::get("/loadCityByIdProv/{id}","OngkirController@loadCityByIdProv")->name('ongkir.loadCityByIdProv');
 
         Route::get("/cekOngkir/{asal}/{kab}/{kurir}/{berat}","OngkirController@cekOngkir")->name('ongkir.cekOngkir');
@@ -57,6 +57,7 @@ Route::group(['middleware' => ['frontEnd']], function () {
     });
 
     Route::get('/payment', 'PaymentController@index')->name('payment');
+    Route::post('/dopay', 'PaymentController@handleonlinepay')->name('dopay');
     Route::post('/successful', 'PaymentController@pay')->name('pay');
 
     Route::get('/orders', 'OrderController@index')->name('orders');

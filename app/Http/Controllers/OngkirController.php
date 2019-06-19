@@ -8,6 +8,7 @@ use App\view\ChartHistory;
 use Illuminate\Http\Request;
 use RajaOngkir;
 use Auth;
+use Illuminate\Support\Facades\Session;
 
 class OngkirController extends Controller
 {
@@ -26,10 +27,10 @@ class OngkirController extends Controller
         return view('ongkir', compact('categories','categoryMenu'));
     }
 
-    public function loadKota(){
-        $data = RajaOngkir::Kota()->all();
-        return response()->json($data);
-    }
+    // public function loadKota(){
+    //     $data = RajaOngkir::Kota()->all();
+    //     return response()->json($data);
+    // }
 
     public function loadProvinsi(){
         $data = RajaOngkir::Provinsi()->all();
@@ -52,7 +53,7 @@ class OngkirController extends Controller
     }
 
     public function addOngkirToDb($ongkir){
-        $basket = Basket::where('user_id', Auth::id());
+        $basket = Basket::where('user_id', Auth::id())->where('id', session('active_basket_id'));
         $input = ['ongkir' => $ongkir];
         $basket->update($input);
 

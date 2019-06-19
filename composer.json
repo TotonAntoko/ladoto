@@ -17,7 +17,9 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8",
+        "rizalafani/rajaongkirlaravel": "^1.0",
         "spatie/laravel-fractal": "^5.5",
+        "stripe/stripe-php": "^6.38",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

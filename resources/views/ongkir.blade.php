@@ -8,6 +8,13 @@
                     <h3 class="panel-title">Cek Ongkos Kirim</h3>
                 </div>
                 <div class="form-group">
+                    <label for="">Provinsi Asal</label>
+                    <select name="provinsiAsal" class="form-control" id="provinsiAsal"
+                        aria-placeholder="Pilih Kategori">
+                        <option value="">--- Pilih Provinsi ---</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="">Kota / Kabupaten Asal</label>
                     <select name="kotaAsal" class="form-control" id="kotaAsal"
                         aria-placeholder="Pilih Kategori">
@@ -15,7 +22,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">Provinsi Asal</label>
+                    <label for="">Provinsi Tujuan</label>
                     <select name="provinsiTujuan" class="form-control" id="provinsiTujuan"
                         aria-placeholder="Pilih Kategori">
                         <option value="">--- Pilih Provinsi ---</option>
@@ -79,17 +86,17 @@
     <script>
 
         $(document).ready(function(){
-            $.ajax({
-                url : 'ongkir/loadKota',
-                type: "GET",
-                dataType: "JSON",
-                success: function (data) {
-                    $.each(data,function(index,obj)
-                    {
-                            $("#kotaAsal").append("<option value='"+obj.city_id+"'>"+obj.type+" "+obj.city_name+"</option>");
-                    });
-                }
-            });
+            // $.ajax({
+            //     url : 'ongkir/loadKota',
+            //     type: "GET",
+            //     dataType: "JSON",
+            //     success: function (data) {
+            //         $.each(data,function(index,obj)
+            //         {
+            //                 $("#kotaAsal").append("<option value='"+obj.city_id+"'>"+obj.type+" "+obj.city_name+"</option>");
+            //         });
+            //     }
+            // });
             $.ajax({
                 url : 'ongkir/loadProvinsi',
                 type: "GET",
@@ -98,6 +105,7 @@
                     $.each(data,function(index,obj)
                     {
                             $("#provinsiTujuan").append("<option value='"+obj.province_id+"'>"+obj.province+"</option>");
+                            $("#provinsiAsal").append("<option value='"+obj.province_id+"'>"+obj.province+"</option>");
                     });
                 }
             });
@@ -117,6 +125,27 @@
                         $.each(data,function(index,obj)
                         {
                             $("#kotaTujuan").append("<option value='"+obj.city_id+"'>"+obj.type+" "+obj.city_name+"</option>");
+                        });
+                    }
+                });
+            });
+
+            $('#provinsiAsal').change(function(){
+
+                //Mengambil value dari option select provinsi kemudian parameternya dikirim menggunakan ajax
+                var prov = $('#provinsiAsal').val();
+                // var prov = 1;
+
+                $("#kotaAsal").empty();
+                $.ajax({
+                    url : 'ongkir/loadCityByIdProv/' + prov,
+                    type : 'GET',
+                    dataType: "JSON",
+                    success: function (data) {
+
+                        $.each(data,function(index,obj)
+                        {
+                            $("#kotaAsal").append("<option value='"+obj.city_id+"'>"+obj.type+" "+obj.city_name+"</option>");
                         });
                     }
                 });

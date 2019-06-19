@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="top_nav_left">Laravel E-Commerce + Iyzico</div>
+                        <div class="top_nav_left">Laravel E-Commerce Ladoto</div>
                     </div>
                     <div class="col-md-6 text-right">
                         <div class="top_nav_right">
@@ -283,7 +283,10 @@
 </div>
 
 
-<script src="{{ asset('frontEnd/assets/js/jquery-3.2.1.min.js') }}"></script>
+{{-- <script src="{{ asset('frontEnd/assets/js/jquery-3.2.1.min.js') }}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
 <script src="{{ asset('frontEnd/assets/styles/bootstrap4/popper.js') }}"></script>
 <script src="{{ asset('frontEnd/assets/styles/bootstrap4/bootstrap.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>

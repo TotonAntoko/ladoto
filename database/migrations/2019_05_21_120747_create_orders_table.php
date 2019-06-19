@@ -26,7 +26,8 @@ class CreateOrdersTable extends Migration
             $table->string('phone',15)->nullable();
             $table->string('m_phone',15)->nullable();
             $table->string('payment_method')->nullable();
-            $table->integer('installments')->nullable();
+            $table->string('charge_id');
+            $table->string('stripe_id')->comment('customer stripe id');
 
             $table->string('token')->nullable();
 

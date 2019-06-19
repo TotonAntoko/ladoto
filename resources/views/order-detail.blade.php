@@ -41,14 +41,14 @@
                                             {{ $basket_product->product->product_name }}
                                         </a>
                                     </td>
-                                    <td>{{ number_format($basket_product->price,2) }} ₺</td>
+                                    <td>Rp. {{ number_format($basket_product->price,2) }}</td>
                                     <td>{{ $basket_product->quantity }}</td>
-                                    <td>{{ $basket_product->price * $basket_product->quantity }} ₺</td>
+                                    <td>Rp. {{ number_format($basket_product->price * $basket_product->quantity) }}</td>
                                 </tr>
                             @endforeach
                             <tr>
-                                <th colspan="4" class="text-right">TOTAL(VAT INCLUDED)</th>
-                                <td colspan="2">{{ $order->order_price }} ₺</td>
+                                <th colspan="4" class="text-right">TOTAL(Ongkir)</th>
+                                <td colspan="2">Rp. {{ number_format($order->order_price) }}</td>
                             </tr>
 
                             <tr>
