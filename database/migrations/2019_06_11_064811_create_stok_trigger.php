@@ -13,18 +13,18 @@ class CreateStokTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared('
-            CREATE TRIGGER STOK_UPDATE_PRODUCT AFTER INSERT ON orders FOR EACH ROW BEGIN
-                UPDATE products p 
-                INNER JOIN basket_products bp ON p.id=bp.product_id 
-                INNER JOIN baskets b ON bp.basket_id=b.id
-                INNER JOIN orders o ON b.id=o.basket_id
-                SET stok=stok-bp.quantity 
-                WHERE p.id=bp.product_id
-                AND bp.basket_id=b.id
-                AND b.id=NEW.basket_id;
-            END
-        ');
+        // DB::unprepared('
+        //     CREATE TRIGGER STOK_UPDATE_PRODUCT AFTER INSERT ON orders FOR EACH ROW BEGIN
+        //         UPDATE products p 
+        //         INNER JOIN basket_products bp ON p.id=bp.product_id 
+        //         INNER JOIN baskets b ON bp.basket_id=b.id
+        //         INNER JOIN orders o ON b.id=o.basket_id
+        //         SET stok=stok-bp.quantity 
+        //         WHERE p.id=bp.product_id
+        //         AND bp.basket_id=b.id
+        //         AND b.id=NEW.basket_id;
+        //     END
+        // ');
         
     }
 
