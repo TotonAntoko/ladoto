@@ -12,13 +12,10 @@ class CustomersTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('customer')->insert([
-            'nama' => 'Toton',
-            'Alamat' => 'Malang',
-            'kota' => 'Malang',
-            'negara' => 'IND',
-            'no_telp' => '00000',
-            'status' => 1,
+        DB::table('admins')->insert([
+          'username' => 'admin',
+          'password'=> '$2b$10$eTK4Pfme6CsB1FdVOLPXxuqii43tFbK4d6kLDPz/j/3ZXpxjQ2IKC',
+          'status' => 1
         ]);
     }
 }
